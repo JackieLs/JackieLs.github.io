@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      搭建基于 Hexo 的博客 (1) | Jackie.Ls&#39; Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jackie.Ls">
+    
+    
+
+    <meta name="description" content="直到有一天我发现我干了两年前端，却没留下一点痕迹的时候我才知道，我该写博客了。 ————题记   我先说几点我认为写博客的重要意义:  沉淀，总结业务中的经验教训 加深对知识的理解 把自己的认识分享给大家，同时接受大家的批评指正  如果认同这几个观点，请继续往下看，不认同的，请Cmd + Q 或者 Alt + F4。 这些天百度了一下如何搭建一个 github 博客，其中比较流行的有 Hexo、">
+<meta name="keywords" content="blog,hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建基于 Hexo 的博客 (1) | Jackie.Ls&#39; Blog">
+<meta property="og:url" content="https://jackiels.github.io/2018/01/30/搭建基于Hexo的博客-1/index.html">
+<meta property="og:site_name" content="Jackie.Ls&#39; Blog">
+<meta property="og:description" content="直到有一天我发现我干了两年前端，却没留下一点痕迹的时候我才知道，我该写博客了。 ————题记   我先说几点我认为写博客的重要意义:  沉淀，总结业务中的经验教训 加深对知识的理解 把自己的认识分享给大家，同时接受大家的批评指正  如果认同这几个观点，请继续往下看，不认同的，请Cmd + Q 或者 Alt + F4。 这些天百度了一下如何搭建一个 github 博客，其中比较流行的有 Hexo、">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2018-01-30T08:18:50.242Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搭建基于 Hexo 的博客 (1) | Jackie.Ls&#39; Blog">
+<meta name="twitter:description" content="直到有一天我发现我干了两年前端，却没留下一点痕迹的时候我才知道，我该写博客了。 ————题记   我先说几点我认为写博客的重要意义:  沉淀，总结业务中的经验教训 加深对知识的理解 把自己的认识分享给大家，同时接受大家的批评指正  如果认同这几个观点，请继续往下看，不认同的，请Cmd + Q 或者 Alt + F4。 这些天百度了一下如何搭建一个 github 博客，其中比较流行的有 Hexo、">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Jackie.Ls&#39; Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          FE Thug Life
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Index</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">About</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">搭建基于 Hexo 的博客 (1)</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-01-30" class="post-meta__date date">2018-01-30</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/github博客搭建/">github博客搭建</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/blog/">blog</a>, <a class="tags-link" href="/tags/hexo/">hexo</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <blockquote>
+<p>直到有一天我发现我干了两年前端，却没留下一点痕迹的时候我才知道，我该写博客了。</p>
+<p align="right">————题记</p>
+
+</blockquote>
+<p>我先说几点我认为写博客的重要意义:</p>
+<ul>
+<li>沉淀，总结业务中的经验教训</li>
+<li>加深对知识的理解</li>
+<li>把自己的认识分享给大家，同时接受大家的批评指正</li>
+</ul>
+<p>如果认同这几个观点，请继续往下看，不认同的，请<code>Cmd + Q</code> 或者 <code>Alt + F4</code>。</p>
+<p>这些天百度了一下如何搭建一个 github 博客，其中比较流行的有 <code>Hexo、Jekyll</code>，因为 <code>Jekyll</code> 是基于 <code>RubyGem</code> 的，而因为我比较熟悉 <code>NodeJS</code>，所以选择基于<code>NodeJS</code> 的<code>Hexo</code>。</p>
+<h3 id="安装 NodeJS 和 Git"><a href="# 安装 NodeJS 和 Git" class="headerlink" title="安装 NodeJS 和 Git"></a>安装 NodeJS 和 Git</h3><ul>
+<li>NodeJS <a href="https://nodejs.org/" target="_blank" rel="noopener">下载地址</a></li>
+<li>Git <a href="https://git-scm.com/download" target="_blank" rel="noopener">下载地址</a></li>
+</ul>
+<p>官方都有详细的教程，按照官方文档的方法去做就行。</p>
+<h3 id="Github- 配置"><a href="#Github- 配置" class="headerlink" title="Github 配置"></a>Github 配置 </h3><h4 id="生成 Repository"><a href="# 生成 Repository" class="headerlink" title="生成 Repository"></a> 生成 Repository</h4><p>注册一个 github 账号，登陆进去，找到 Repositories 选项卡，点 New 创建一个项目，比如我的 username 叫 JackieLs，那么这个项目名就必须叫<code>JackieLs.github.io</code>，假设你的 username 叫 Nancy(后面都会以 Nancy 举例)，那么你的这个项目名称就应该叫<code>Nancy.github.io</code>，这样这个 Repository 就建好了。</p>
+<h4 id="尝试一个简单页面"><a href="# 尝试一个简单页面" class="headerlink" title="尝试一个简单页面"></a>尝试一个简单页面 </h4><p> 你可以在你的 Repository 里面点创建一个叫 <code>index.html</code> 的文件（最后部署的时候，会被本地的生成的 index.html 强制覆盖），内容如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">	&lt;title&gt;Test&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div&gt; 这是我的 blog&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后这个时候你打开 <code>https://nancy.github.io/</code> 就能看到网页的内容了</p>
+<h4 id="生成 ssh 公钥"><a href="# 生成 ssh 公钥" class="headerlink" title="生成 ssh 公钥"></a>生成 ssh 公钥 </h4><p> 把电脑的 SSH 公钥添加到 github 上：<br>1)打开 bash，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot; 你的邮箱 &quot;</span><br></pre></td></tr></table></figure></p>
+<p>然后一路回车就好。<br>2)进入这文件夹，并且查看公钥内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.ssh &amp;&amp; cat id_rsa.pub</span><br></pre></td></tr></table></figure></p>
+<p>3)复制公钥内容到 github<br>头像 -&gt; settings -&gt; SSH and GPG keys -&gt; New SSH key<br>4)检测 SSH 是否成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com //-T 不显示终端，只显示连接成功信息</span><br></pre></td></tr></table></figure></p>
+<p>返回以下内容则说明配置成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hi Nancy! You&apos;ve successfully authenticated, but GitHub does not</span><br><span class="line">provide shell access.</span><br></pre></td></tr></table></figure></p>
+<p>4)配置 github 账户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;Nancy&quot;</span><br><span class="line">git config --global user.email &quot;Your Email&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Hexo 配置"><a href="#Hexo 配置" class="headerlink" title="Hexo 配置"></a>Hexo 配置</h3><blockquote>
+<p>如果 npm 太慢不好用的话就用 <a href="http://npm.taobao.org/" target="_blank" rel="noopener">cnpm</a></p>
+</blockquote>
+<h4 id="使用 npm 完成 Hexo 的安装"><a href="# 使用 npm 完成 Hexo 的安装" class="headerlink" title="使用 npm 完成 Hexo 的安装"></a>使用 npm 完成 Hexo 的安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-cli -g // 如果没有权限需要在 npm 前面加上 sudo</span><br></pre></td></tr></table></figure>
+<p>更详细的安装信息请参考<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo 安装</a></p>
+<h4 id="使用 Hexo 自动建站"><a href="# 使用 Hexo 自动建站" class="headerlink" title="使用 Hexo 自动建站"></a>使用 Hexo 自动建站</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init Nancy-blog // 初始化 blog</span><br><span class="line">cd Nancy-blog // 进入文件夹</span><br><span class="line">npm i // 安装依赖包</span><br></pre></td></tr></table></figure>
+<p>生成之后你的目录应该是这样的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">├── _config.yml // 网站配置文件</span><br><span class="line">├── package.json // 项目依赖包配置文件</span><br><span class="line">├── scaffolds // 模板文件夹</span><br><span class="line">│   ├── draft.md // 草稿模板</span><br><span class="line">│   ├── page.md // 页面模板</span><br><span class="line">│   └── post.md // 默认文章模板</span><br><span class="line">├── source // 存放文章的地方</span><br><span class="line">│   └── _posts // 所有的 markdown 文章都存在这里</span><br><span class="line">├── themes // 网站主题</span><br><span class="line">│   └── landscape</span><br><span class="line">└── yarn.lock //yarn 安装时，锁定安装包的精确版本以及所有依赖，这个无所谓，忽略即可</span><br></pre></td></tr></table></figure></p>
+<h4 id="本地启动 Hexo 服务端"><a href="# 本地启动 Hexo 服务端" class="headerlink" title="本地启动 Hexo 服务端"></a>本地启动 Hexo 服务端</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server --debug // 简写是 hexo s --debug</span><br></pre></td></tr></table></figure>
+<p>在浏览器输入 <code>http://localhost:4000/</code> 就可以看到生成的网站了，可点一点，感受一下</p>
+<h4 id="关联 github"><a href="# 关联 github" class="headerlink" title="关联 github"></a>关联 github</h4><p>编辑 <code>_config.yml</code>，找到<code>deploy</code> 这个选项，改成这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git // 使用 git 部署</span><br><span class="line">  repo: git@github.com:Nancy/Nancy.github.io.git // 这个就是 git clone 那个地址</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建文章并发布到 github"><a href="# 创建文章并发布到 github" class="headerlink" title="创建文章并发布到 github"></a>创建文章并发布到 github</h3><blockquote>
+<p>终于要写文章了，有点小小的鸡冻了。</p>
+</blockquote>
+<h4 id="创建文章"><a href="# 创建文章" class="headerlink" title="创建文章"></a>创建文章</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &apos; 我的第一篇博客 &apos; // 简写是 hexo n &apos; 我的第一篇博客 &apos;</span><br></pre></td></tr></table></figure>
+<p>官网的命令是 <code>hexo new [layout] title</code>，我们上面的 layout 省略掉了，自动使用的就是 post 模板，配置项是<code>_config.yml</code> 的<code>default_layout: post</code>，这个 post 指的就是 <code>scaffolds -&gt; post.md</code>下面的 post.md 文件。生成的文件在 <code>source -&gt; _posts</code> 下面。点击之后就可以任意编辑了。</p>
+<h4 id="生成网站"><a href="# 生成网站" class="headerlink" title="生成网站"></a>生成网站</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate // 简写是 hexo g</span><br></pre></td></tr></table></figure>
+<p>可以添加 <code>-d</code> 生成静态文件后直接部署，这一步的目的是把所有的 md 以及 theme 的样式、字体等生成 html,css,js，然后放到一个叫做 <code>.deploy_git</code> 的文件夹下面，这个 <code>.deploy_git</code> 就是你的 <code>Nancy.gihub.io</code> 这个 Repository，下一步就是把它推到 github 上</p>
+<h4 id="部署网站"><a href="# 部署网站" class="headerlink" title="部署网站"></a>部署网站 </h4><p> 安装 hexo-deployer-git，Hexo 部署到 git 的一个 plugin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-deployer-git -s</span><br></pre></td></tr></table></figure>
+<p>然后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy // 简写是 hexo d</span><br></pre></td></tr></table></figure>
+<p>可以添加 <code>-g</code> 部署前重新生成静态文件，这时候你就会看见，命令行会出现一些什么删除啊，复制啊，上传啊之类的，最后告诉你 Deploy done，就完成了。<br>更多详细的命令请参看<a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">Hexo 指令</a></p>
+<h3 id="写在结尾"><a href="# 写在结尾" class="headerlink" title="写在结尾"></a>写在结尾 </h3><p> 截止到这里你的网站已经部署到 <code>http://nancy.gihub.io/</code> 上面去了 (如果没部署成功，请少侠重新来过) 直接打开该链接就会看到一个默认的《hello-word》和你刚刚生成的《我的第一篇博客》，这个是人类的一小步，但是是你的一大步，人生的第一个 Bolg 就这样诞生了，虽然很丑，虽然没什么内容，但是要知道，罗马不是一天建成的，骆驼也不是一天就压死的，要积少成多，仰望星空，脚踏实地。子在川上曰：不舍昼夜。</p>
+<h4 id="总结一下重点"><a href="# 总结一下重点" class="headerlink" title="总结一下重点"></a>总结一下重点</h4><ul>
+<li>github 安装</li>
+<li>node 安装</li>
+<li>github 线上和本地配置</li>
+<li>hexo 配置</li>
+<li>hexo 命令</li>
+</ul>
+<h4 id="参考文献"><a href="# 参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a href="https://hexo.io/zh-cn/docs" target="_blank" rel="noopener">Hexo 官方文档</a><br><a href="http://barrysite.me/2017/05/07/Github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" target="_blank" rel="noopener">Barry Site Github+Hexo+NEXT 主题 + 域名绑定 博客搭建全记录</a></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2018-2020. | Powered By <a href="https://hexo.io/">Hexo</a>| Theme <a href="https://github.com/someus/huno">Huno</a></span>
+    <div style="margin-top: 16px;">
+    	<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs" aria-label="Follow @JackieLs on GitHub">Follow @JackieLs</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io" data-icon="octicon-star" aria-label="Star JackieLs/JackieLs.github.io on GitHub">Star</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io/issues" data-icon="octicon-issue-opened" aria-label="Issue JackieLs/JackieLs.github.io on GitHub">Issue</a>
+    </div>
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+    <!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+</body>
+</html>
