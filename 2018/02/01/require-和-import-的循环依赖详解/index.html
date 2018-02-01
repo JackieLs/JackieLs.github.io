@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      require 和 import 的循环依赖详解 | Jackie.Ls&#39; Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jackie.Ls">
+    
+    
+
+    <meta name="description" content="(拓展阅读：循环加载) 12const counter = require(&apos;counter&apos;)import counter from &apos;counter&apos; import 编译出来的结果1234&apos;use strict&apos;;var _counter = require(&apos;./counter&apos;);var _counter2 = _interopRequireDefault(_counter);functi">
+<meta name="keywords" content="javascript,nodejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="require 和 import 的循环依赖详解 | Jackie.Ls&#39; Blog">
+<meta property="og:url" content="https://jackiels.github.io/2018/02/01/require-和-import-的循环依赖详解/index.html">
+<meta property="og:site_name" content="Jackie.Ls&#39; Blog">
+<meta property="og:description" content="(拓展阅读：循环加载) 12const counter = require(&apos;counter&apos;)import counter from &apos;counter&apos; import 编译出来的结果1234&apos;use strict&apos;;var _counter = require(&apos;./counter&apos;);var _counter2 = _interopRequireDefault(_counter);functi">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2018-02-01T07:31:16.673Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="require 和 import 的循环依赖详解 | Jackie.Ls&#39; Blog">
+<meta name="twitter:description" content="(拓展阅读：循环加载) 12const counter = require(&apos;counter&apos;)import counter from &apos;counter&apos; import 编译出来的结果1234&apos;use strict&apos;;var _counter = require(&apos;./counter&apos;);var _counter2 = _interopRequireDefault(_counter);functi">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Jackie.Ls&#39; Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          FE Thug Life
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">About</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">require 和 import 的循环依赖详解</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-02-01" class="post-meta__date date">2018-02-01</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/大前端/">大前端</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/javascript/">javascript</a>, <a class="tags-link" href="/tags/nodejs/">nodejs</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>(拓展阅读：<a href="http://www.ruanyifeng.com/blog/2015/11/circular-dependency.html" target="_blank" rel="noopener">循环加载</a>)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> counter = <span class="built_in">require</span>(<span class="string">'counter'</span>)</span><br><span class="line"><span class="keyword">import</span> counter <span class="keyword">from</span> <span class="string">'counter'</span></span><br></pre></td></tr></table></figure>
+<p>import 编译出来的结果<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="keyword">var</span> _counter = <span class="built_in">require</span>(<span class="string">'./counter'</span>);</span><br><span class="line"><span class="keyword">var</span> _counter2 = _interopRequireDefault(_counter);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_interopRequireDefault</span>(<span class="params">obj</span>) </span>&#123; <span class="keyword">return</span> obj &amp;&amp; obj.__esModule ? obj : &#123; <span class="attr">default</span>: obj &#125;; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看出来决定权是在 <code>counter.js</code>，来试试几个不同的 counter.js<br> 可以看出来 <code>_counter2</code> 要么是 {default: obj} 要么是 obj，那么这个 obj 又是什么呢？看下面<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="number">1</span></span><br><span class="line">--&gt;</span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(exports, <span class="string">"__esModule"</span>, &#123;</span><br><span class="line">  value: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line">exports.default = <span class="number">1</span>;</span><br><span class="line"><span class="comment">//========</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">counter</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">--&gt;</span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(exports, <span class="string">"__esModule"</span>, &#123;</span><br><span class="line">  value: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line">exports.counter = counter;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">counter</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="comment">//========</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">--&gt;</span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>可以看出来都是对 <code>exports</code> 对象的操作 (要么加了个 default，要不就加了个自定义的属性)，不同的地方就是在<code>counter</code> 的值，counter</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2018-2020. | Powered By <a href="https://hexo.io/">Hexo</a>| Theme <a href="https://github.com/someus/huno">Huno</a></span>
+    <div style="margin-top: 16px;">
+    	<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs" aria-label="Follow @JackieLs on GitHub">Follow @JackieLs</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io" data-icon="octicon-star" aria-label="Star JackieLs/JackieLs.github.io on GitHub">Star</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io/issues" data-icon="octicon-issue-opened" aria-label="Issue JackieLs/JackieLs.github.io on GitHub">Issue</a>
+    </div>
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+    <!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+</body>
+</html>

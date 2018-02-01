@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      CommonJS、AMD、CMD、UMD、ES6 Modules 的种种不同 | Jackie.Ls&#39; Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jackie.Ls">
+    
+    
+
+    <meta name="description" content="前端模块化现在已经不是什么新的话题了，但是自己之前对这部分一直不是十分清晰，最近在看 BAT 相关面试的题目，其中就有关于这几种规范的一些题目，今天对这部分内容进行一个总结。  目前的规范主要有以下几种  CommonJS  AMD (Asynchronous Module Definition) CMD (Common Module Definition) UMD (Universal Mod">
+<meta name="keywords" content="javascript,nodejs,前端模块化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CommonJS、AMD、CMD、UMD、ES6 Modules 的种种不同 | Jackie.Ls&#39; Blog">
+<meta property="og:url" content="https://jackiels.github.io/2018/01/30/CommonJS、AMD、CMD、UMD、ES6-Modules的种种/index.html">
+<meta property="og:site_name" content="Jackie.Ls&#39; Blog">
+<meta property="og:description" content="前端模块化现在已经不是什么新的话题了，但是自己之前对这部分一直不是十分清晰，最近在看 BAT 相关面试的题目，其中就有关于这几种规范的一些题目，今天对这部分内容进行一个总结。  目前的规范主要有以下几种  CommonJS  AMD (Asynchronous Module Definition) CMD (Common Module Definition) UMD (Universal Mod">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2018-02-01T08:30:02.478Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CommonJS、AMD、CMD、UMD、ES6 Modules 的种种不同 | Jackie.Ls&#39; Blog">
+<meta name="twitter:description" content="前端模块化现在已经不是什么新的话题了，但是自己之前对这部分一直不是十分清晰，最近在看 BAT 相关面试的题目，其中就有关于这几种规范的一些题目，今天对这部分内容进行一个总结。  目前的规范主要有以下几种  CommonJS  AMD (Asynchronous Module Definition) CMD (Common Module Definition) UMD (Universal Mod">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Jackie.Ls&#39; Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          FE Thug Life
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">About</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">CommonJS、AMD、CMD、UMD、ES6 Modules 的种种不同</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-01-30" class="post-meta__date date">2018-01-30</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/大前端/">大前端</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/javascript/">javascript</a>, <a class="tags-link" href="/tags/nodejs/">nodejs</a>, <a class="tags-link" href="/tags/前端模块化/">前端模块化</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <blockquote>
+<p>前端模块化现在已经不是什么新的话题了，但是自己之前对这部分一直不是十分清晰，最近在看 BAT 相关面试的题目，其中就有关于这几种规范的一些题目，今天对这部分内容进行一个总结。</p>
+</blockquote>
+<p>目前的规范主要有以下几种</p>
+<ul>
+<li>CommonJS </li>
+<li>AMD (Asynchronous Module Definition)</li>
+<li>CMD (Common Module Definition)</li>
+<li>UMD (Universal Module Definition)</li>
+<li>ES6 Modules</li>
+</ul>
+<p>每一种规范的出现都代表了一个时代，一种思维，都有对应的具体实践，下面我们来一点点剖析。</p>
+<h2 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h2><p>CommonJS 根据维基百科的说法，是在 2009 年一月诞生，那时候叫 ServerJS，后来在八月份正式更名为 CommonJS，这个规范的出现更多的是为了解决团队协作的问题。</p>
+<blockquote>
+<p>What I’m describing here is not a technical problem. It’s a matter of people getting together and making a decision to step forward and start building up something bigger and cooler together — Kevin Dangoor</p>
+</blockquote>
+<p>2013 年的时候，npm 的作者说这个规范正在被 NodeJS 慢慢淘汰。(WTF? 都 2018 了，再过几年升级 Node 就要改代码咯？)原因很简单，因为 CommonJS 是野路子，并没有被 ECMA 国际组织 TC39 纳入规范，而真正的官方规范是 ES6 Modules 后面会细说。<br>目前 CommonJS 主要应用场景就是 NodeJS 端，下面就是 a.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="built_in">module</span>.exports = &#123; <span class="attr">content</span>: <span class="string">'I am a'</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个模块使用 <code>require</code> 引入别的模块，使用 <code>module.exports</code> 导出模块内容，在另外一个 b.js 中(a.js,b.js 在同一个文件夹下)，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="built_in">require</span>(<span class="string">'./a.js'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(a.content) <span class="comment">// -&gt; 'I am a'</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123; <span class="attr">content</span>: <span class="string">'I am b" &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>之后别的模块中也可以使用 <code>require</code> 对 b 模块进行加载调用，这样循环往复，一个大的 Node 项目，就变成各个小 JS 模块的组合。<br>当然，不仅仅是 <code>.js</code> 文件可以被 <code>require</code>,<code>.json, .node</code> 都可以，详情见阮一峰老师的 <a href="http://www.ruanyifeng.com/blog/2015/05/require.html" target="_blank" rel="noopener">require() 源码解读</a><br> 当一个 Nodejs 项目启动的时候，就会去 <strong> 同步 </strong> 执行项目所依赖的全部模块，之后项目启动成功。</p>
+<h2 id="AMD- 规范"><a href="#AMD- 规范" class="headerlink" title="AMD 规范"></a>AMD 规范 </h2><p> 翻译一下就知道 AMD 是异步模块加载，目前流传比较广泛的使用该规范的是 <a href="http://requirejs.org/" target="_blank" rel="noopener">RequireJS</a>，该规范的意义就是在浏览器端实现了模块的异步加载，也就是<code>&lt;script async&gt;&lt;/script&gt;</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">define(id, [depends], callback)</span><br><span class="line"><span class="built_in">require</span>([moduleA, moduleB...], callback) <span class="comment">//callback 的参数是 module 的实例,</span></span><br></pre></td></tr></table></figure>
+<p>提前加载所有的模块，AMD 运行时核心思想是「Early Executing」，也就是提前执行依赖，把所有的依赖加载完之后，再去执行之后的 callback，好处：</p>
+<ul>
+<li>保证运行不会出错，不会出现运行到某一个代码的时候依赖没有加载出来</li>
+<li>不会出现页面的假死，html 和 css 加载出来之后，不会因为某些 js 没有加载出来导致整个页面卡在一个空白的地方，而是继续执行后面的内容。</li>
+</ul>
+<p>缺点的话，之前浅浅的接触过一个用 Backbone + RequireJS 写的项目，觉得缺点主要有两点：</p>
+<ul>
+<li>写起来很费劲</li>
+<li>无法实现按需加载</li>
+</ul>
+<h2 id="CMD- 规范"><a href="#CMD- 规范" class="headerlink" title="CMD 规范"></a>CMD 规范 </h2><p> 因为无法按需加载，所以阿里的玉伯就弹出来这个 CMD 规范，搞了个 <a href="https://seajs.github.io/seajs/docs/" target="_blank" rel="noopener">SeaJS</a>，这个我是一点也没用过，2015 年年末的时候接触了一下 RequireJS 和 Backbone 就直接去搞 React 了，见证了 React 的发展强大。不过这个 Seajs 正经也是很多人的青春啊。<br> 跟 AMD 最不一样的地方就是可以按需加载，哪里想用就在哪里直接 require 就行了<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 通过 require 引入依赖</span></span><br><span class="line">  <span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>);</span><br><span class="line">  <span class="keyword">var</span> Spinning = <span class="built_in">require</span>(<span class="string">'./spinning'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 通过 exports 对外提供接口</span></span><br><span class="line">  exports.doSomething = ...</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 或者通过 module.exports 提供整个接口</span></span><br><span class="line">  <span class="built_in">module</span>.exports = ...</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>好处是按需加载，不好的地方就是一旦包多了，比如 50 个，那么就会发 50 个请求，这么多请求所浪费的网络资源，还不如不按需加载，那怎么办，就得打包了，SPM 啊，grunt 啊，都是上个时代的东西了，我是只听过没见过啊。有兴趣的请看鑫富帅：<a href="http://www.zhangxinxu.com/wordpress/2012/07/seajs-node-nodejs-spm-npm/" target="_blank" rel="noopener">高富帅 seajs 使用示例及 spm 合并压缩工具露脸 </a><br> 总结起来就是：<br>AMD：提前执行，依赖前置，全部加载。<br>CMD：延迟执行，依赖就近，按需加载。</p>
+<h2 id="UMD- 规范"><a href="#UMD- 规范" class="headerlink" title="UMD 规范"></a>UMD 规范 </h2><p> 这种规范，我觉得是 ES6 Modules 出现之前一种非常好的规范，严格来说这并不算是一种规范，是一种兼容代码，他的实现了 CommonJS 和 AMD 的一种结合，这样做的好处就是 Client 和 Server 可以共用同一个库，看下面的，因为之前写 IDE 的时候解除了 CodeMirror 怎奈文档写的有些模糊，所以就去看了看源码，看了头几行让我印象十分深刻。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">mod</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports == <span class="string">"object"</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> == <span class="string">"object"</span>) <span class="comment">// CommonJS</span></span><br><span class="line">    mod(<span class="built_in">require</span>(<span class="string">"../../lib/codemirror"</span>));</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define == <span class="string">"function"</span> &amp;&amp; define.amd) <span class="comment">// AMD</span></span><br><span class="line">    define([<span class="string">"../../lib/codemirror"</span>], mod);</span><br><span class="line">  <span class="keyword">else</span> <span class="comment">// Plain browser env</span></span><br><span class="line">    mod(CodeMirror);</span><br><span class="line">&#125;)(<span class="function"><span class="keyword">function</span>(<span class="params">CodeMirror</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这几行代码就是 UMD 规范的体现，并且最后一行还是对原生浏览器环境的兼容，npm 上很多 package 都是这样写的，有兴趣可以找几个包来看一下。</p>
+<h2 id="ES6-Modules"><a href="#ES6-Modules" class="headerlink" title="ES6 Modules"></a>ES6 Modules</h2><p>先看看基本语法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//import</span></span><br><span class="line"><span class="keyword">import</span> foo <span class="keyword">from</span> <span class="string">'foo'</span> <span class="comment">// 这个其实就是 import &#123;default as foo&#125; from 'foo'</span></span><br><span class="line"><span class="keyword">import</span> &#123; key1, key2 &#125; <span class="keyword">from</span> <span class="string">'foo'</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> foo <span class="keyword">from</span> <span class="string">'foo'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//export</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">a</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = <span class="string">'xxx'</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;b&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">var</span> c = <span class="number">100</span>;</span><br></pre></td></tr></table></figure></p>
+<p>export 要求导出的内容必须有个名字，有人问了 export default 就没有名字啊，因为 default 就是他的名字。其中有几个重要的重要的地方需要理解一下。</p>
+<p><strong>一、import 的解构引用表示对静态资源的一种引用，说明了当前模块对其他模块的依赖条件，其值是根据资源的改变而改变。require 则不同，他是把资源引入进来后进行赋值(= 号，与变量赋值概念一样)，缓存了该模块的值。</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// counter.js</span></span><br><span class="line">exports.count = <span class="number">0</span></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'increase count to'</span>, ++exports.count, <span class="string">'in counter.js after 500ms'</span>)</span><br><span class="line">&#125;, <span class="number">500</span>)</span><br><span class="line"><span class="comment">// commonjs.js</span></span><br><span class="line"><span class="keyword">const</span> &#123;count&#125; = <span class="built_in">require</span>(<span class="string">'./counter'</span>)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'read count after 1100ms in commonjs is'</span>, count)</span><br><span class="line">&#125;, <span class="number">1100</span>)</span><br><span class="line"><span class="comment">//es6.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;count&#125; <span class="keyword">from</span> <span class="string">'./counter'</span></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'read count after 1100ms in es6 is'</span>, count)</span><br><span class="line">&#125;, <span class="number">1100</span>)</span><br></pre></td></tr></table></figure></p>
+<p>分别运行 commonjs.js 和 es6.js：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜ node commonjs.js</span><br><span class="line">increase count to 1 in counter.js after 500ms</span><br><span class="line">read count after 1000ms in commonjs is 0</span><br><span class="line"></span><br><span class="line">➜ babel-node es6.js -b env</span><br><span class="line">increase count to 1 in counter.js after 500ms</span><br><span class="line">read count after 1000ms in es6 is 1</span><br></pre></td></tr></table></figure></p>
+<p>目前来说，import 是一个语法糖，最后还是会被 babel 转译成 require，es6.js 编译之后如下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="keyword">var</span> _counter = <span class="built_in">require</span>(<span class="string">'./counter'</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'read count after 1000ms in es6 is'</span>, _counter.count);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure></p>
+<p>require(‘./counter’)是个对象，可以看出来是对对象的引用。<br>commonjs 解构的编译结果是这样的，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// commonjs.js</span></span><br><span class="line"><span class="keyword">var</span> _require = <span class="built_in">require</span>(<span class="string">'./counter'</span>),</span><br><span class="line">    count = _require.count;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'read count after 1000ms in commonjs is'</span>, count);</span><br><span class="line">&#125;, <span class="number">1500</span>);</span><br></pre></td></tr></table></figure></p>
+<p>是直接赋值的哦。所以可以看出来 import 解构是一种对模块对象的引用，而 require 是直接赋值。</p>
+<p><strong>二、不采用解构赋值的时候，直接引用模块的时候也不一样。我们做个对比。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> counter <span class="keyword">from</span> <span class="string">'counter'</span></span><br><span class="line"><span class="built_in">console</span>.log(counter)</span><br></pre></td></tr></table></figure>
+<p>babel 编译出来的结果<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="keyword">var</span> _counter = <span class="built_in">require</span>(<span class="string">'./counter'</span>);</span><br><span class="line"><span class="keyword">var</span> _counter2 = _interopRequireDefault(_counter);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_interopRequireDefault</span>(<span class="params">obj</span>) </span>&#123; <span class="keyword">return</span> obj &amp;&amp; obj.__esModule ? obj : &#123; <span class="attr">default</span>: obj &#125;; &#125;</span><br><span class="line"><span class="built_in">console</span>.log(_counter2.default)</span><br></pre></td></tr></table></figure></p>
+<p>也就是说 import 对模块的直接引用，就等于<code>require(&#39;counter&#39;).default</code>，这也就印证了上面说的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> _foo <span class="keyword">from</span> <span class="string">'foo'</span> <span class="comment">// 这个其实就是 import &#123;default as _foo&#125; from 'foo'</span></span><br></pre></td></tr></table></figure></p>
+<p>最后_foo 就是 foo 模块的 <code>exports.default</code>，而<code>require(&#39;foo&#39;)</code> 就是引用 foo 的 <code>exports</code> 对象</p>
+<p><strong>三、import 要求必须出现在模块的最上面，即使没有写到最上面，也会直接提升到最上面</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.js</span></span><br><span class="line">global.log = <span class="function">(<span class="params">str</span>) =&gt;</span> <span class="built_in">console</span>.log(str);</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./b'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// b.js</span></span><br><span class="line">global.log(<span class="string">'hello world'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>由于 import 被提升所以这个例子会报 log undefined，用 babel 编译一下会得到:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.js</span></span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'./b'</span>);</span><br><span class="line">global.log = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">console</span>.log(str);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// b.js</span></span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line">global.log(<span class="string">'hello world'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>可以额看到 <code>require</code> 被提升了 <br><strong> 四、export 和 modules.exports</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 编译前后</span><br><span class="line">export default foo =&gt; exports.default = foo</span><br><span class="line">export foo1 =&gt; exports.foo1</span><br></pre></td></tr></table></figure></p>
+<p>所以可以看出来，ES6 Module 规范中 <code>export</code> 就是 CommonJS 的 <code>exports</code>，<code>export default</code> 不会覆盖 <code>export function a(){}</code>，而在 CommonJS 中<code>module.exports = {}</code> 会覆盖 <code>exports.a = 1</code>，而且从语法上来讲一个模块只能有一个<code>export default</code> 多个直接编译不过会报错，但是 <code>module.exports = {}</code> 却可以写任意多个，最后那个会覆盖所有上面的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;<span class="comment">//illegal 直接报错</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>五、require 支持动态加载，但是 import 不支持</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadA</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">require</span>(<span class="string">'A'</span>)</span><br><span class="line">	<span class="keyword">import</span>(<span class="string">'A'</span>) <span class="comment">//illegal 直接报错</span></span><br><span class="line">&#125;</span><br><span class="line">loadA()</span><br></pre></td></tr></table></figure></p>
+<p>关于 import/export 和 require/module.exports 更详细的对比，我会在另外一篇 <a href="/2018/02/01/require-%E5%92%8C-import-%E7%9A%84%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E8%AF%A6%E8%A7%A3/">require 和 import 的循环依赖详解</a> 详细阐述。</p>
+<h2 id="写在结尾"><a href="# 写在结尾" class="headerlink" title="写在结尾"></a>写在结尾 </h2><p> 总结一下</p>
+<ul>
+<li>CommonJS 同步运行，可动态加载，模块缓存，主要运行在 Server 端</li>
+<li>AMD Client 端的 CommonJS，异步加载 JS，提前执行，依赖前置</li>
+<li>CMD 优化了 AMD，异步加载 JS，延迟执行，依赖就近，按需加载</li>
+<li>UMD 兼容 CommonJS 和 AMD 的兼容(<code>CommonJS:typeof exports == &quot;object&quot; &amp;&amp; typeof module == &quot;object&quot;;AMD:typeof define === &#39;function&#39; &amp;&amp; define.amd</code>)</li>
+<li>ES6 Module 官方标准，解构引用是对目标模块对象的引用，整体引用就是对目标模块对象的 <code>default</code> 属性的引用，依赖提升，只能有一个<code>export default</code>，不支持动态加载。</li>
+</ul>
+<p>通过对比了 CommonJS、AMD、CMD、UMD 和 ES6 Modules，我们不难发现，所有的规范都是通过 require 函数和 js 的特性 (回调，闭包，对象指针等等) 变形来的，但是因为种种特性导致了代码运行的过程完全不一样。<br>希望读者可以通过篇文章更好的了解这几个规范，如果有不正确的地方，希望多多指正。欢迎提到 issue。</p>
+<h2 id="参考文献"><a href="# 参考文献" class="headerlink" title="参考文献"></a>参考文献 </h2><p><a href="http://www.imooc.com/article/20057" target="_blank" rel="noopener">JavaScript 模块化 — Commonjs、AMD、CMD、ES6 modules</a><br><a href="http://www.ruanyifeng.com/blog/2012/10/asynchronous_module_definition.html" target="_blank" rel="noopener">Javascript 模块化编程（二）：AMD 规范</a><br><a href="http://www.cnblogs.com/imwtr/p/4666181.html" target="_blank" rel="noopener"> 关于 CommonJS AMD CMD UMD 规范的差异总结 </a><br><a href="https://www.zhihu.com/question/56820346/answer/151717681" target="_blank" rel="noopener"> 变量提升的代码</a><br><a href="https://wmaqingbo.github.io/blog/2017/09/15/ES6%E6%A8%A1%E5%9D%97-%E5%92%8C-CommonJS-%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_blank" rel="noopener">ES6 模块 和 CommonJS 的区别</a><br><a href="http://www.cnblogs.com/unclekeith/p/7679503.html" target="_blank" rel="noopener">commonjs 模块与 es6 模块的区别</a><br><a href="https://stackoverflow.com/a/31367852" target="_blank" rel="noopener">Using Node.js require vs. ES6 import/export</a></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2018-2020. | Powered By <a href="https://hexo.io/">Hexo</a>| Theme <a href="https://github.com/someus/huno">Huno</a></span>
+    <div style="margin-top: 16px;">
+    	<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs" aria-label="Follow @JackieLs on GitHub">Follow @JackieLs</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io" data-icon="octicon-star" aria-label="Star JackieLs/JackieLs.github.io on GitHub">Star</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io/issues" data-icon="octicon-issue-opened" aria-label="Issue JackieLs/JackieLs.github.io on GitHub">Issue</a>
+    </div>
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+    <!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+</body>
+</html>
