@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      JS 的面向对象编程———原型链非详解 | Jackie.Ls&#39; Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jackie.Ls">
+    
+    
+
+    <meta name="description" content="原型链是 JS 中非常核心的一部分理念，有些东西可能很晦涩难懂，但是走到前端编程的一定阶段会非常有用，尤其是需要体现一些设计模式的时候。JS 也是通过原型链来实现面向对象的继承、封装、多态的特性。  我觉得这篇文章不适合特别特别初学者 (连prototype 和__proto__都不知道的)，我希望这部分读者先去看看大红书，里面有一些很详尽的讲解。 科普  关于 Constructor所有的对象">
+<meta name="keywords" content="javascript,nodejs,面向对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS 的面向对象编程———原型链非详解 | Jackie.Ls&#39; Blog">
+<meta property="og:url" content="https://jackiels.github.io/2018/02/06/JS的面向对象编程———原型链详解/index.html">
+<meta property="og:site_name" content="Jackie.Ls&#39; Blog">
+<meta property="og:description" content="原型链是 JS 中非常核心的一部分理念，有些东西可能很晦涩难懂，但是走到前端编程的一定阶段会非常有用，尤其是需要体现一些设计模式的时候。JS 也是通过原型链来实现面向对象的继承、封装、多态的特性。  我觉得这篇文章不适合特别特别初学者 (连prototype 和__proto__都不知道的)，我希望这部分读者先去看看大红书，里面有一些很详尽的讲解。 科普  关于 Constructor所有的对象">
+<meta property="og:locale" content="en-US">
+<meta property="og:image" content="http://p3rwqk8qi.bkt.clouddn.com/images/prototype.jpg">
+<meta property="og:updated_time" content="2018-02-07T09:32:06.798Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS 的面向对象编程———原型链非详解 | Jackie.Ls&#39; Blog">
+<meta name="twitter:description" content="原型链是 JS 中非常核心的一部分理念，有些东西可能很晦涩难懂，但是走到前端编程的一定阶段会非常有用，尤其是需要体现一些设计模式的时候。JS 也是通过原型链来实现面向对象的继承、封装、多态的特性。  我觉得这篇文章不适合特别特别初学者 (连prototype 和__proto__都不知道的)，我希望这部分读者先去看看大红书，里面有一些很详尽的讲解。 科普  关于 Constructor所有的对象">
+<meta name="twitter:image" content="http://p3rwqk8qi.bkt.clouddn.com/images/prototype.jpg">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Jackie.Ls&#39; Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          FE Thug Life
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">About</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">JS 的面向对象编程———原型链非详解</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-02-06" class="post-meta__date date">2018-02-06</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/大前端/">大前端</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/javascript/">javascript</a>, <a class="tags-link" href="/tags/nodejs/">nodejs</a>, <a class="tags-link" href="/tags/面向对象/">面向对象</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <blockquote>
+<p>原型链是 JS 中非常核心的一部分理念，有些东西可能很晦涩难懂，但是走到前端编程的一定阶段会非常有用，尤其是需要体现一些设计模式的时候。JS 也是通过原型链来实现面向对象的继承、封装、多态的特性。</p>
+</blockquote>
+<p>我觉得这篇文章不适合特别特别初学者 (连<code>prototype</code> 和<code>__proto__</code>都不知道的)，我希望这部分读者先去看看大红书，里面有一些很详尽的讲解。</p>
+<h2 id="科普"><a href="# 科普" class="headerlink" title="科普"></a>科普 </h2><h3 id="关于 Constructor"><a href="# 关于 Constructor" class="headerlink" title="关于 Constructor"></a> 关于 Constructor</h3><p>所有的对象都来来自于构造函数的实例化(<code>new</code>)，即使是最基本的对象。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>() <span class="comment">//Object 就是普通对象的构造函数。</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Function</span>() <span class="comment">//function 的构造函数是 Function()&#123;&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="关于 prototype"><a href="# 关于 prototype" class="headerlink" title="关于 prototype"></a>关于 prototype</h3><p>只有函数有 <code>prototype</code> 这个属性，这个属性就是 <strong> 当前函数的原型对象 </strong>。通常情况只在<strong> 构造函数 </strong> 中去使用这个属性，这样可以为原型对象添加一些方法，以及属性。(也就是一个类的概念)<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//console.log(typeof Cat.prototype == 'Object')</span></span><br><span class="line">Cat.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'喵~'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="关于 proto"><a href="# 关于 proto" class="headerlink" title="关于 proto"></a>关于<strong>proto</strong></h3><!-- 数据类型  -->
+<!-- = 原始类型(String,Number,Boolean,null,undefined,Symbol) + Object  -->
+<!-- = 值类型(String,Number,Boolean,null,undefined) + 引用类型(Array,Function,Object) -->
+<p>字符串、布尔、数值、对象、Symbol 这五种数据类型的变量都有 <code>__proto__</code>，指向其构<strong> 造函数的原型对象 </strong>，通过这个属性，可以看到当前这个儿子(实例) 的父亲 (类) 是谁，，还有非常重要的一点 <code>__proto__</code> 一定是对象。<br>通常情况下我们不会使用这个属性，如果一定要使用请使用 <code>Object.getPrototypeOf()</code> 这个方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">''</span></span><br><span class="line">s.__proto__ = <span class="built_in">String</span>&#123;&#125;</span><br><span class="line">s.__proto__ === <span class="built_in">String</span>.prototype <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = <span class="literal">true</span></span><br><span class="line">b.__proto__ = <span class="built_in">Boolean</span>&#123;&#125;</span><br><span class="line">b.__proto__ === <span class="built_in">Boolean</span>.prototype <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">1</span></span><br><span class="line">n.__proto__ = <span class="built_in">Number</span>&#123;&#125;</span><br><span class="line">n.__proto__ === <span class="built_in">Number</span>.prototype <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o = &#123;&#125;</span><br><span class="line">o.__proto__ = &#123;&#125; <span class="comment">//</span></span><br><span class="line">o.__proto__ === <span class="built_in">Object</span>.prototype <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sym = <span class="built_in">Symbol</span>()</span><br><span class="line">sym.__proto__ = <span class="built_in">Symbol</span>&#123;&#125;</span><br><span class="line">sym.__proto__ === <span class="built_in">Symbol</span>.prototype <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p><code>undefined</code>没有构造函数，它是所有变量的初始值。<br><code>null</code>没有构造函数，它是所有对象的最原始形态。</p>
+<h2 id="Function 的特殊性"><a href="#Function 的特殊性" class="headerlink" title="Function 的特殊性"></a>Function 的特殊性 </h2><p><code>function</code> 就有意思了，他也有 <code>__proto__</code>，但是它的<code>__proto__</code> 是个函数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">typeof</span> foo.__proto__ <span class="comment">// 'function'</span></span><br></pre></td></tr></table></figure></p>
+<p>但是我上面说过，所有的函数都会有 <code>prototype</code> 这个属性，但是你会发现 <code>foo.__proto__</code> 这个“函数”并没有 <code>prototype</code> 这个属性，却有 <code>__proto__</code> 这个属性 <br> 我们来看一下这个 <code>foo.__proto__</code> 究竟是什么<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">foo.__proto__ <span class="comment">//ƒ () &#123; [native code] &#125;</span></span><br><span class="line">foo.__proto__ === <span class="built_in">Function</span>.prototype <span class="comment">//true: 所以 Function 是 foo 的构造函数。</span></span><br><span class="line">foo.__proto__ === <span class="built_in">Function</span>.__proto__ <span class="comment">//true: 可以尝试声明任意函数，你会发现任意 function 的__proto__都是相等的。</span></span><br><span class="line"><span class="built_in">Function</span>.__proto__ === <span class="built_in">Function</span>.prototype <span class="comment">// 函数的特殊性：Self Build</span></span><br><span class="line"><span class="built_in">Function</span>.__proto__.__proto__ === <span class="built_in">Object</span>.prototype <span class="comment">//true，Function.__proto__是一个 Object 实例</span></span><br><span class="line"><span class="built_in">Function</span>.__proto__ <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true: 同样证明 Function.__proto__是一个 Object 实例</span></span><br></pre></td></tr></table></figure></p>
+<p>所以事实证明 <code>foo.__proto__, Function.__proto__</code> 是一个特殊的 <strong>函数对象 </strong>，虽然他的<code>typeof</code> 是<code>function</code>。<br>上个图<br><img src="http://p3rwqk8qi.bkt.clouddn.com/images/prototype.jpg" alt=""></p>
+<p>那么我们来屡屡这中间的关系，就从 <code>ƒ () { [native code] }</code> 这条开始，这是关键，这部分代码我们是看不到的，也就是说这个是浏览器引擎实现的代码。这个就是一个特殊的对象，我们给他起个名字叫 <strong>function 原始对象 </strong>(也就是 Function.prototype) ，由浏览器引擎生成。<strong>function 原始对象</strong> 是<code>Object</code> 构造函数的一个实例，<code>Object.prototype</code>是一个 <strong>祖先对象 </strong> ， <strong> 祖先对象 </strong> 的<code>proto</code> 是<code>null</code>，这个 <strong> 祖先对象 </strong> 也是由浏览器引擎生成的。<br> 浏览器给了我们一个上帝：<strong>祖先对象 </strong> ，给了我们一个上帝的肉身：<strong>function 原始对象</strong>。然后定义了一个传宗接代的方式 ———— new。<br> 这里有两个怪胎：<br>怪胎 1：Object 构造函数，他的 <code>prototype</code> 是我们的 <strong>祖先对象 </strong> ，他的<code>__proto__</code> 是 <strong>function 原始对象 </strong><br> 怪胎 2：Function 构造函数，他的 <code>prototype</code> 是 <strong>function 原始对象 </strong>，他的<code>__proto__</code> 也是 <strong>function 原始对象</strong>，Self Build。</p>
+<h2 id="new- 表达式"><a href="#new- 表达式" class="headerlink" title="new 表达式"></a>new 表达式 </h2><p><code>var foo = new Foo</code> 都做了什么呢</p>
+<ul>
+<li><p>第一步把冰箱门打开：弄一个继承自 Foo.prototype 的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var foo = &#123;&#125;</span><br><span class="line">foo.__proto__ = Foo.prototype // 坚决不建议这么写，只是为了理解其中过程</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二部把大象装进去：把 Foo 的 <code>this</code> 指向 foo 这个对象，。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo.call(foo)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第三部把冰箱门关上：如果 Foo 函数返回了一个引用类型的值，那么最后 foo 就等于那个引用类型的值。否则还是最开始定义的那个对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.a = <span class="string">'123'</span></span><br><span class="line">	<span class="keyword">return</span> &#123; <span class="attr">b</span>: <span class="string">'123'</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> foo = <span class="keyword">new</span> Foo <span class="comment">// foo = &#123; b: '123' &#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new" target="_blank" rel="noopener">MDN</a></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2018-2020. | Powered By <a href="https://hexo.io/">Hexo</a>| Theme <a href="https://github.com/someus/huno">Huno</a></span>
+    <div style="margin-top: 16px;">
+    	<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs" aria-label="Follow @JackieLs on GitHub">Follow @JackieLs</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io" data-icon="octicon-star" aria-label="Star JackieLs/JackieLs.github.io on GitHub">Star</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io/issues" data-icon="octicon-issue-opened" aria-label="Issue JackieLs/JackieLs.github.io on GitHub">Issue</a>
+    </div>
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    <script src="//cdn1.lncld.net/static/js/3.5.0/av-min.js"></script>
+<script>
+var APP_ID  = 'jzQsjRglCHMcEvMrIJtbw3sV-gzGzoHsz'
+var APP_KEY = '3Bf95QMn8Ky1DISWf4Ml9GzA'
+AV.init({
+	appId: APP_ID,
+	appKey: APP_KEY
+})
+// var Visitors = AV.Object.extend('Jackie_Blog_Visitors');
+// var visitor = new Visitors();
+
+// visitor.set('path', )
+
+
+
+// visitor.set('')
+
+
+// visitor.save({
+// 	words: 'Hello World!'
+// }).then(function(object) {
+// 	alert('LeanCloud Rocks!');
+// })
+</script>
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+    <!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+</body>
+</html>
