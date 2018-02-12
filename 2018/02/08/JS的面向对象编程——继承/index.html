@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      JS 的面向对象编程——继承 | Jackie.Ls&#39; Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jackie.Ls">
+    
+    
+
+    <meta name="description" content="之前讲过原型链，JS 的继承就是通过原型链来继承的，不像 java 那样有 class 可以 extends，今天我们好好研究一下 js 是怎么继承的。  什么叫继承 子类可以使用父类的方法 / 属性 子类可以继续定义自己的方法属性 子类可以通过 getter 方式来调用父类的私有属性  JS 中的继承 JS 中的类 在 JS 中是通过构造函数来实现类的概念123function Animal(">
+<meta name="keywords" content="javascript,nodejs,面向对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS 的面向对象编程——继承 | Jackie.Ls&#39; Blog">
+<meta property="og:url" content="https://jackiels.github.io/2018/02/08/JS的面向对象编程——继承/index.html">
+<meta property="og:site_name" content="Jackie.Ls&#39; Blog">
+<meta property="og:description" content="之前讲过原型链，JS 的继承就是通过原型链来继承的，不像 java 那样有 class 可以 extends，今天我们好好研究一下 js 是怎么继承的。  什么叫继承 子类可以使用父类的方法 / 属性 子类可以继续定义自己的方法属性 子类可以通过 getter 方式来调用父类的私有属性  JS 中的继承 JS 中的类 在 JS 中是通过构造函数来实现类的概念123function Animal(">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2018-02-12T07:01:29.569Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS 的面向对象编程——继承 | Jackie.Ls&#39; Blog">
+<meta name="twitter:description" content="之前讲过原型链，JS 的继承就是通过原型链来继承的，不像 java 那样有 class 可以 extends，今天我们好好研究一下 js 是怎么继承的。  什么叫继承 子类可以使用父类的方法 / 属性 子类可以继续定义自己的方法属性 子类可以通过 getter 方式来调用父类的私有属性  JS 中的继承 JS 中的类 在 JS 中是通过构造函数来实现类的概念123function Animal(">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Jackie.Ls&#39; Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          FE Thug Life
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">About</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">JS 的面向对象编程——继承</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-02-08" class="post-meta__date date">2018-02-08</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/大前端/">大前端</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/javascript/">javascript</a>, <a class="tags-link" href="/tags/nodejs/">nodejs</a>, <a class="tags-link" href="/tags/面向对象/">面向对象</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <blockquote>
+<p>之前讲过原型链，JS 的继承就是通过原型链来继承的，不像 java 那样有 class 可以 extends，今天我们好好研究一下 js 是怎么继承的。</p>
+</blockquote>
+<h2 id="什么叫继承"><a href="# 什么叫继承" class="headerlink" title="什么叫继承"></a>什么叫继承</h2><ul>
+<li>子类可以使用父类的方法 / 属性</li>
+<li>子类可以继续定义自己的方法属性</li>
+<li>子类可以通过 getter 方式来调用父类的私有属性</li>
+</ul>
+<h2 id="JS 中的继承"><a href="#JS 中的继承" class="headerlink" title="JS 中的继承"></a>JS 中的继承 </h2><h3 id="JS 中的类"><a href="#JS 中的类" class="headerlink" title="JS 中的类"></a>JS 中的类</h3><p> 在 JS 中是通过构造函数来实现类的概念<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//animal 类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="JS 中的六种继承方式"><a href="#JS 中的六种继承方式" class="headerlink" title="JS 中的六种继承方式"></a>JS 中的六种继承方式 </h3><h4 id="一、基本原型链继承"><a href="# 一、基本原型链继承" class="headerlink" title="一、基本原型链继承"></a> 一、基本原型链继承 </h4><h5 id="实现"><a href="# 实现" class="headerlink" title="实现"></a> 实现</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Super</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'foo'</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">this</span>.superObj = &#123;</span><br><span class="line">		name: <span class="string">'super'</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">Super.prototype.foo2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Sub</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.subObj = &#123;</span><br><span class="line">		name: <span class="string">'sub'</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">Sub.prototype = <span class="keyword">new</span> Super()</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	下面面这行的目的在实际工作中非常重要，这方便他人判断当前这个类的构造函数是谁，</span></span><br><span class="line"><span class="comment">	如果没有这行你会发现 instance1 的构造函数竟然是 Super，明明是用 Sub 类构造的。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Sub.prototype.constructor = Sub</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> instance1 = <span class="keyword">new</span> Sub()</span><br><span class="line"><span class="keyword">var</span> instance2 = <span class="keyword">new</span> Sub()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(instance1.subObj === instance2.subObj) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(instance1.superObj === instance2.superObj) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h5 id="优点"><a href="# 优点" class="headerlink" title="优点"></a>优点</h5><ul>
+<li>简单</li>
+</ul>
+<h5 id="缺点"><a href="# 缺点" class="headerlink" title="缺点"></a>缺点</h5><ul>
+<li>在子类实例修改上父类函数内部的 <strong>引用类型属性</strong> 会被提现到每个实例上，因为这类属性都是内存地址的传递。</li>
+<li>如果想通过子类的实例去向父类的构造函数传递初始参数耦合性会非常高。</li>
+</ul>
+<h4 id="二、借用构造函数"><a href="# 二、借用构造函数" class="headerlink" title="二、借用构造函数"></a>二、借用构造函数 </h4><h5 id="实现 -1"><a href="# 实现 -1" class="headerlink" title="实现"></a> 实现</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Super</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'foo'</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">this</span>.superObj = &#123;</span><br><span class="line">		name: <span class="string">'super'</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">this</span>.arg = [].slice.call(<span class="built_in">arguments</span>)</span><br><span class="line">&#125;</span><br><span class="line">Super.prototype.foo2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Sub</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	Super.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>)</span><br><span class="line">	<span class="keyword">this</span>.subObj = &#123;</span><br><span class="line">		name: <span class="string">'sub'</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> instance1 = <span class="keyword">new</span> Sub(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="keyword">var</span> instance2 = <span class="keyword">new</span> Sub(<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(instance1.arg) <span class="comment">//1,2,3</span></span><br><span class="line"><span class="built_in">console</span>.log(instance2.arg) <span class="comment">//a,b,c</span></span><br><span class="line"><span class="built_in">console</span>.log(instance1.foo === instance2.foo) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(instance1.subObj === instance2.subObj) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(instance1.superObj === instance2.superObj) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(instance1.foo2) <span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(instance2.foo2) <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+<h5 id="优点 -1"><a href="# 优点 -1" class="headerlink" title="优点"></a>优点</h5><ul>
+<li>弥补了上面的缺点</li>
+</ul>
+<h5 id="缺点 -1"><a href="# 缺点 -1" class="headerlink" title="缺点"></a>缺点</h5><ul>
+<li>无法实现函数 / 公共属性复用，每个子类实例都持有一个新的 foo/subObj/superObj，太多了就会影响性能，内存爆炸。</li>
+<li>无法继承父类原型链上的方法和属性</li>
+</ul>
+<h4 id="三、组合继承"><a href="# 三、组合继承" class="headerlink" title="三、组合继承"></a>三、组合继承 </h4><p> 最常用的一种继承方式</p>
+<h5 id="实现 -2"><a href="# 实现 -2" class="headerlink" title="实现"></a>实现</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Super</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.superObj = &#123;</span><br><span class="line">		name: <span class="string">'super'</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">this</span>.arg = [].slice.call(<span class="built_in">arguments</span>)</span><br><span class="line">&#125;</span><br><span class="line">Super.prototype.foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="built_in">console</span>.log(<span class="string">'foo'</span>) &#125;</span><br><span class="line">Super.prototype.foo2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Sub</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	Super.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>)</span><br><span class="line">	<span class="keyword">this</span>.subObj = &#123;</span><br><span class="line">		name: <span class="string">'sub'</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">Sub.prototype = <span class="keyword">new</span> Super()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> instance1 = <span class="keyword">new</span> Sub(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="keyword">var</span> instance2 = <span class="keyword">new</span> Sub(<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(instance1.arg) <span class="comment">//1,2,3</span></span><br><span class="line"><span class="built_in">console</span>.log(instance2.arg) <span class="comment">//a,b,c</span></span><br><span class="line"><span class="built_in">console</span>.log(instance1.foo === instance2.foo) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(instance1.subObj === instance2.subObj) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(instance1.superObj === instance2.superObj) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(instance1.foo2) <span class="comment">//f()&#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(instance2.foo2) <span class="comment">//f()&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="优点 -2"><a href="# 优点 -2" class="headerlink" title="优点"></a>优点</h5><ul>
+<li>弥补了上面的缺点</li>
+</ul>
+<h5 id="缺点 -2"><a href="# 缺点 -2" class="headerlink" title="缺点"></a>缺点</h5><ul>
+<li>不能算是缺点，算不够完美吧，因为在每次 <code>new Sub()</code> 的时候，都会调用一次 <code>Super.apply(this, arguments)</code>，而<code>new Super()</code> 已经调用过一次了。还是有内存上的浪费。</li>
+</ul>
+<blockquote>
+<p>这里说明一下，什么时候用构造函数内部属性，什么时候用原型属性，当属性为 <strong>非共享属性的时候 </strong> 在构造函数内部进行声明，并且保证 <strong> 每次创建实例的时候都会执行一次该构造函数 </strong>，当属性为 <strong> 共享属性的时候</strong> 将属性放在原型链上，供所有实例使用，一旦某实例修改共享属性，则其他实例也会受到影响。</p>
+</blockquote>
+<h4 id="四、原型式继承"><a href="# 四、原型式继承" class="headerlink" title="四、原型式继承"></a>四、原型式继承 </h4><p> 这种方式不是很常见，借助原型可以基于已有的 <strong>对象</strong> 创建新对象，同时还不必因此创建自定义类型，不依赖构造函数。</p>
+<h5 id="实现 -3"><a href="# 实现 -3" class="headerlink" title="实现"></a>实现</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">object</span>(<span class="params">o</span>)</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">	F.prototype = o</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> F()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p = &#123;</span><br><span class="line">	name: <span class="string">'Jackie'</span>,</span><br><span class="line">	friends: [<span class="string">'L'</span>, <span class="string">'Z'</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p1 = object(p)</span><br><span class="line"><span class="keyword">var</span> p2 = object(p)</span><br><span class="line"></span><br><span class="line">p1.name = <span class="string">'J'</span></span><br><span class="line">p2.name = <span class="string">'M'</span></span><br><span class="line"></span><br><span class="line">p1.friends.push(<span class="string">'K'</span>)</span><br><span class="line">p1.friends.push(<span class="string">'B'</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="优点 -3"><a href="# 优点 -3" class="headerlink" title="优点"></a>优点</h5><ul>
+<li>不需要指定各种构造函数的类型，只定义原型对象即可。</li>
+</ul>
+<h5 id="不足"><a href="# 不足" class="headerlink" title="不足"></a>不足</h5><ul>
+<li>相当于都是通过 <code>prototype</code> 继承的，所有的引用类型的属性都是公共的，这时候其中一个实例修改了这个属性，别的实例也会被修改。</li>
+</ul>
+<h4 id="五、寄生式继承"><a href="# 五、寄生式继承" class="headerlink" title="五、寄生式继承"></a>五、寄生式继承 </h4><h5 id="实现 -4"><a href="# 实现 -4" class="headerlink" title="实现"></a> 实现</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createAnother</span>(<span class="params">original</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> clone = object(original) <span class="comment">// 之前原型式继承的那个函数，也可以是任意一个返回一个对象的函数，总之不是浅复制，而是生成一个新的对象</span></span><br><span class="line">	clone.sayHi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'hi'</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> clone</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="优点 -4"><a href="# 优点 -4" class="headerlink" title="优点"></a>优点</h5><ul>
+<li>在主要考虑对象而不是自定义类型和构造函数的情况下，寄生式继承也是一种有用的模式。</li>
+</ul>
+<h5 id="不足 -1"><a href="# 不足 -1" class="headerlink" title="不足"></a>不足</h5><ul>
+<li>跟构造函数一样，函数不能复用，用多了内存爆棚。</li>
+</ul>
+<p>六、寄生组合式继承 <br> 这种是很经典近乎完美的模式，babel 编译 ES6<code>class A extends B</code>的时候使用了这种模式。</p>
+<h5 id="实现 -5"><a href="# 实现 -5" class="headerlink" title="实现"></a>实现 </h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* babel 编译的结果 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_inherits</span>(<span class="params">subClass, superClass</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> superClass !== <span class="string">"function"</span> &amp;&amp; superClass !== <span class="literal">null</span>) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Super expression must either be null or a function, not"</span> + <span class="keyword">typeof</span> superClass);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">		主要是这一段 ↓↓↓↓↓</span></span><br><span class="line"><span class="comment">		Object.create(proto) 是根据某一个已有的对象创建一个新的对象。</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	subClass.prototype = <span class="built_in">Object</span>.create(superClass &amp;&amp; superClass.prototype, &#123;</span><br><span class="line">		<span class="keyword">constructor</span>: &#123;</span><br><span class="line">			value: subClass,</span><br><span class="line">			enumerable: <span class="literal">false</span>,</span><br><span class="line">			writable: <span class="literal">true</span>,</span><br><span class="line">			configurable: <span class="literal">true</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">	<span class="keyword">if</span> (superClass) <span class="built_in">Object</span>.setPrototypeOf ? <span class="built_in">Object</span>.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name</span><br><span class="line">	<span class="keyword">this</span>.colors = [<span class="string">'red'</span>, <span class="string">'blue'</span>]</span><br><span class="line">&#125;</span><br><span class="line">SuperType.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params">name, age</span>)</span>&#123;</span><br><span class="line">	SuperType.call(<span class="keyword">this</span>, name) <span class="comment">// 只在这里执行了一次</span></span><br><span class="line">	<span class="keyword">this</span>.age = age</span><br><span class="line">&#125;</span><br><span class="line">_inherits(SubType, SuperType) <span class="comment">// 注意顺序，否则，sayAge 会被覆盖。</span></span><br><span class="line">SubType.prototype.sayAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="优点 -5"><a href="# 优点 -5" class="headerlink" title="优点"></a>优点</h5><ul>
+<li>高效，SuperType 这个构造函数只被调用了一次。</li>
+</ul>
+<h5 id="缺点 -3"><a href="# 缺点 -3" class="headerlink" title="缺点"></a>缺点</h5><ul>
+<li>有点复杂？我觉得还好。</li>
+</ul>
+<h2 id="总结"><a href="# 总结" class="headerlink" title="总结"></a>总结 </h2><p> 介绍了六种继承的方式，大同小异，都是在原型链上动手脚。只是在不断地优化效率。现在都是用 ES6 了，babel 直接帮我们把最优化最规范的方式写出来了，不过我们还是要明白其中的原理，说不定有一天我们需要自己去实现一些东西呢。</p>
+<h2 id="参考"><a href="# 参考" class="headerlink" title="参考"></a>参考 </h2><p>JavaScript 高级程序设计——第六章<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create" target="_blank" rel="noopener">MDN——Object.create()</a><br><a href="http://www.ayqy.net/blog/%E9%87%8D%E6%96%B0%E7%90%86%E8%A7%A3js%E7%9A%846%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F/" target="_blank" rel="noopener"> 重新理解 js 的 6 种继承方式</a></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2018-2020. | Powered By <a href="https://hexo.io/">Hexo</a>| Theme <a href="https://github.com/someus/huno">Huno</a></span>
+    <div style="margin-top: 16px;">
+    	<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs" aria-label="Follow @JackieLs on GitHub">Follow @JackieLs</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io" data-icon="octicon-star" aria-label="Star JackieLs/JackieLs.github.io on GitHub">Star</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io/issues" data-icon="octicon-issue-opened" aria-label="Issue JackieLs/JackieLs.github.io on GitHub">Issue</a>
+    </div>
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    <script src="//cdn1.lncld.net/static/js/3.5.0/av-min.js"></script>
+<script>
+var APP_ID  = 'jzQsjRglCHMcEvMrIJtbw3sV-gzGzoHsz'
+var APP_KEY = '3Bf95QMn8Ky1DISWf4Ml9GzA'
+AV.init({
+	appId: APP_ID,
+	appKey: APP_KEY
+})
+// var Visitors = AV.Object.extend('Jackie_Blog_Visitors');
+// var visitor = new Visitors();
+
+// visitor.set('path', )
+
+
+
+// visitor.set('')
+
+
+// visitor.save({
+// 	words: 'Hello World!'
+// }).then(function(object) {
+// 	alert('LeanCloud Rocks!');
+// })
+</script>
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+    <!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+</body>
+</html>
