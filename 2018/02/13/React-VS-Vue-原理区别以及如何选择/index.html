@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      React VS Vue 原理区别以及如何选择 | Jackie.Ls&#39; Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jackie.Ls">
+    
+    
+
+    <meta name="description" content="使用 React 和 Vue 已经将近一年半的时间了。对两款框架都很喜欢，今天就来剖析一下这两者的区别以及在实际工作中应当如何选择。  实现原理对比 React 太复杂了，我只想贴一篇教程在这里，这是个系列教程，建议慢慢看。 【React 内部原理】=== 中英双字 ====== 英文原版 === 我看了大约三天才看出来一点点皮毛，我还会再看第二遍的，简单总结一下。 虚拟 DOMReact 构造">
+<meta name="keywords" content="javascript,nodejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React VS Vue 原理区别以及如何选择 | Jackie.Ls&#39; Blog">
+<meta property="og:url" content="https://jackiels.github.io/2018/02/13/React-VS-Vue-原理区别以及如何选择/index.html">
+<meta property="og:site_name" content="Jackie.Ls&#39; Blog">
+<meta property="og:description" content="使用 React 和 Vue 已经将近一年半的时间了。对两款框架都很喜欢，今天就来剖析一下这两者的区别以及在实际工作中应当如何选择。  实现原理对比 React 太复杂了，我只想贴一篇教程在这里，这是个系列教程，建议慢慢看。 【React 内部原理】=== 中英双字 ====== 英文原版 === 我看了大约三天才看出来一点点皮毛，我还会再看第二遍的，简单总结一下。 虚拟 DOMReact 构造">
+<meta property="og:locale" content="en-US">
+<meta property="og:image" content="http://p3rwqk8qi.bkt.clouddn.com/images/vue-mvvm.png">
+<meta property="og:updated_time" content="2018-03-01T07:58:45.418Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React VS Vue 原理区别以及如何选择 | Jackie.Ls&#39; Blog">
+<meta name="twitter:description" content="使用 React 和 Vue 已经将近一年半的时间了。对两款框架都很喜欢，今天就来剖析一下这两者的区别以及在实际工作中应当如何选择。  实现原理对比 React 太复杂了，我只想贴一篇教程在这里，这是个系列教程，建议慢慢看。 【React 内部原理】=== 中英双字 ====== 英文原版 === 我看了大约三天才看出来一点点皮毛，我还会再看第二遍的，简单总结一下。 虚拟 DOMReact 构造">
+<meta name="twitter:image" content="http://p3rwqk8qi.bkt.clouddn.com/images/vue-mvvm.png">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Jackie.Ls&#39; Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          FE Thug Life
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">About</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">React VS Vue 原理区别以及如何选择</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-02-13" class="post-meta__date date">2018-02-13</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/大前端/">大前端</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/javascript/">javascript</a>, <a class="tags-link" href="/tags/nodejs/">nodejs</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <blockquote>
+<p>使用 React 和 Vue 已经将近一年半的时间了。对两款框架都很喜欢，今天就来剖析一下这两者的区别以及在实际工作中应当如何选择。</p>
+</blockquote>
+<h2 id="实现原理对比"><a href="# 实现原理对比" class="headerlink" title="实现原理对比"></a>实现原理对比 </h2><h3 id="React"><a href="#React" class="headerlink" title="React"></a>React</h3><p> 太复杂了，我只想贴一篇教程在这里，这是个系列教程，建议慢慢看。</p>
+<p>【React 内部原理】<br><a href="http://tcatche.site/2017/07/react-internals-part-one-basic-rendering/" target="_blank" rel="noopener">=== 中英双字 ===</a><br><a href="http://www.mattgreer.org/articles/react-internals-part-one-basic-rendering/" target="_blank" rel="noopener">=== 英文原版 ===</a></p>
+<p>我看了大约三天才看出来一点点皮毛，我还会再看第二遍的，简单总结一下。</p>
+<h4 id="虚拟 DOM"><a href="# 虚拟 DOM" class="headerlink" title="虚拟 DOM"></a>虚拟 DOM</h4><p>React 构造了一种数据结构，用这个数据结构用来描述一个组件，这个组件有两种类型 <br> 一种是描述实际 dom 的，<code>&lt;div&gt;&lt;/div&gt;</code>这种，叫<code>ReactDOMComponent</code>；</p>
+<p>一种就是我们自定义的组件，<code>&lt;MyComponent /&gt;</code>，“MyComponent”是个构造函数，通过 <code>new</code> 一个实例之后，调用 <code>render</code> 方法来返回一个 dom，，这种叫 <code>ReactComponent</code>，如果返回的是<code>ReactComponent</code> 那就继续<code>new &amp;&amp; render</code>，直到返回一个<code>ReactDOMComponent</code>。</p>
+<p>我们可以看出，无论怎样最后都会生成一个描述实际 dom 的数据结构，而这个数据结构就是传说中的 <strong>虚拟 DOM</strong>。但是这个东西你看不见摸不着，但是他就是在内存里存着，每次 render 的时候都会从内存里把这个东西拿出来。</p>
+<h4 id="Diff 算法"><a href="#Diff 算法" class="headerlink" title="Diff 算法"></a>Diff 算法 </h4><p><strong> 虚拟 DOM</strong> 是一棵树，这个树可以理解为一棵一棵的小树的集合 (单个组件)，每次更新，在调用<code>setState</code> 的这个节点处生成一个新的节点，和原来的节点进行对比，向下进行深度优先遍历对比，一旦发现那个不一样的，就把那个节点替换成新的这个节点。也就是 <code> 原来的虚拟 DOM !=== 新的虚拟 DOM</code>。</p>
+<h3 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h3><h4 id="观察者模式："><a href="# 观察者模式：" class="headerlink" title="观察者模式："></a>观察者模式：</h4><p>有一个信息，这个信息被很多观察者订阅了，一旦这个信息发生改变，那么对应的这些个观察者也会发生改变。代码层面需要做的就是，在主题信息里面存储所有观察者，主体信息一旦发生改变，就会触发所有观察者的 API。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">╭─────────────╮  Fire Event  ╭──────────────╮</span><br><span class="line">│             │─────────────&gt;│              │</span><br><span class="line">│  Subject(1) │              │ Observer(n)  │</span><br><span class="line">│             │&lt;─────────────│              │</span><br><span class="line">╰─────────────╯  Subscribe   ╰──────────────╯</span><br></pre></td></tr></table></figure>
+<h4 id="发布 - 订阅模式："><a href="# 发布 - 订阅模式：" class="headerlink" title="发布 / 订阅模式："></a>发布 / 订阅模式：</h4><p>这是一种观察者模式的升级，在中间加入了一个发布通道，避免让发布者和订阅者之间产生依赖关系。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">╭─────────────╮                 ╭───────────────╮   Fire Event   ╭──────────────╮</span><br><span class="line">│             │  Publish Event  │               │───────────────&gt;│              │</span><br><span class="line">│  Publisher  │────────────────&gt;│ Event Channel │                │  Subscriber  │</span><br><span class="line">│             │                 │               │&lt;───────────────│              │</span><br><span class="line">╰─────────────╯                 ╰───────────────╯  Subscribe     ╰──────────────╯</span><br></pre></td></tr></table></figure></p>
+<h4 id="Vue 架构图解："><a href="#Vue 架构图解：" class="headerlink" title="Vue 架构图解："></a>Vue 架构图解：</h4><p><img src="http://p3rwqk8qi.bkt.clouddn.com/images/vue-mvvm.png" alt=""><br>Vue 使用了发布 / 订阅模式，并使用 <code>Object.defineProperty()</code> 设置属性的 <code>getter</code> 和<code>setter</code>。每个 <code>setter</code> 就是一个 publisher 在 vue 中叫 <code>Observer</code>，这个<code>Observer</code> 的意思是用来观察 vm 实例中 data 属性的变化，并不是观察者模式中的 Observer。<code>Dep(depositor)</code>就是信息通道，用来存放订阅者队列。<code>Watcher</code>就是最终的订阅者，根据信息的变化来触发 update 函数。</p>
+<p>简单说一下这个 mvvm 双向绑定的流程：</p>
+<ul>
+<li>模板绑定数据 (模板根据数据变化)：模板中<code>v-bind</code> 会创建一个 <code>Watcher</code> 实例</li>
+<li>数据绑定模板 (输入数据产生变化)：模板中<code>v-model</code> 回创建一个 <code>addeventListener</code> 的属性监听事件(input, change)</li>
+</ul>
+<p>每次初始化一个模板的时候会 <code>new Vue({..., data(){...} })</code>，它会<code>observer(..)</code> 当前这个 vm 实例，主要是将实例中的 data 进行 <code>getter</code> 和<code>setter</code>化</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(data, key, &#123;</span><br><span class="line">	enumerable: <span class="literal">true</span>, <span class="comment">// 可枚举</span></span><br><span class="line">	configurable: <span class="literal">false</span>, <span class="comment">// 不能再 define</span></span><br><span class="line">	get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (Dep.target) &#123;</span><br><span class="line">			dep.depend(); <span class="comment">//getter 触发，dep.depend 添加依赖</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> val;</span><br><span class="line">	&#125;,</span><br><span class="line">	set: <span class="function"><span class="keyword">function</span>(<span class="params">newVal</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (newVal === val) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		val = newVal;</span><br><span class="line">		<span class="comment">// 通知订阅者</span></span><br><span class="line">		dep.notify();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>同时在 set 中添加 <code>dep.notify()</code> 来通知订阅者，dep 是之前已经通过 <code>new Dep()</code> 声明好的一个消息通道实例，这个实例如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dep</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.id = uid++;</span><br><span class="line">	<span class="keyword">this</span>.subs = [];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dep.prototype = &#123;</span><br><span class="line">	addSub: <span class="function"><span class="keyword">function</span>(<span class="params">sub</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.subs.push(sub);</span><br><span class="line">	&#125;,</span><br><span class="line"></span><br><span class="line">	depend: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		Dep.target.addDep(<span class="keyword">this</span>); <span class="comment">//Target 是在 Watcher 中暂存的 watcher 实例。</span></span><br><span class="line">	&#125;,</span><br><span class="line"></span><br><span class="line">	removeSub: <span class="function"><span class="keyword">function</span>(<span class="params">sub</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> index = <span class="keyword">this</span>.subs.indexOf(sub);</span><br><span class="line">		<span class="keyword">if</span> (index != <span class="number">-1</span>) &#123;</span><br><span class="line">			<span class="keyword">this</span>.subs.splice(index, <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line"></span><br><span class="line">	notify: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.subs.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">sub</span>) </span>&#123;</span><br><span class="line">			sub.update();</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">Dep.target = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure></p>
+<p>其中 addSub 是添加订阅者的方式，添加订阅者是要由订阅者自己进行添加，所以在 <code>Watcher</code> 中会调用这个方法，data 的每个属性都只有一个消息通道实例。<br>以上其中的一个分支，也就是图的上半部分的简要解析。</p>
+<p>另外一方面，<code>new Vue({..., data(){...} })</code>的时候会在函数内部根据 <code>template</code> 里面的内容对模板进行解析，执行 <code>new Compile(...)</code>，每在模板中发现一个<code>bind</code> 就会 <code>new Watcher(...)</code> 一个实例，创建该实例的时候会调用一次 <code>watcher.get()</code> 取得一次该属性的初始值，这时候会触发该属性的 <code>getter</code>，在<code>getter</code> 中调用，<code>dep.depend()</code>，depend 函数中使用暂存的 <code>Dep.target</code>(watcher 实例) 将当前实例添加进该 Dep 里面，如果该消息通道 id 不存在这个 watcher 里面，那么就去把这个 watcher 添加进该消息通道。更新的时候，执行 <code>data[someAttr] = &#39;...&#39;</code> 会触发<code>setter</code>，然后会像这样去掉用<code>setter-&gt;notify-&gt;update</code>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Watcher</span>(<span class="params">vm, expOrFn, cb</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.cb = cb;</span><br><span class="line">	<span class="keyword">this</span>.vm = vm;</span><br><span class="line">	<span class="keyword">this</span>.expOrFn = expOrFn;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.depIds = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.getter = expOrFn;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.value = <span class="keyword">this</span>.get(); <span class="comment">// 触发 get</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Watcher.prototype = &#123;</span><br><span class="line">	update: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.run();</span><br><span class="line">	&#125;,</span><br><span class="line">	run: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> value = <span class="keyword">this</span>.get();</span><br><span class="line">		<span class="keyword">var</span> oldVal = <span class="keyword">this</span>.value;</span><br><span class="line">		<span class="keyword">if</span> (value !== oldVal) &#123;</span><br><span class="line">			<span class="keyword">this</span>.value = value;</span><br><span class="line">			<span class="keyword">this</span>.cb.call(<span class="keyword">this</span>.vm, value, oldVal);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	addDep: <span class="function"><span class="keyword">function</span>(<span class="params">dep</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (!<span class="keyword">this</span>.depIds.hasOwnProperty(dep.id)) &#123;</span><br><span class="line">			dep.addSub(<span class="keyword">this</span>); <span class="comment">// 添加进消息通道</span></span><br><span class="line">			<span class="keyword">this</span>.depIds[dep.id] = dep;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		Dep.target = <span class="keyword">this</span>;</span><br><span class="line">		<span class="keyword">var</span> value = <span class="keyword">this</span>.getter.call(<span class="keyword">this</span>.vm, <span class="keyword">this</span>.vm); <span class="comment">// 这是一个函数，这个函数执行之后会从 vm 的 data 里面取对应的 exp，触发 getter。</span></span><br><span class="line">		Dep.target = <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>更加详细的内容请参考 <a href="https://github.com/DMQ/mvvm" target="_blank" rel="noopener"> 剖析 Vue 实现原理 - 如何实现双向绑定 mvvm</a></p>
+<h3 id="总结"><a href="# 总结" class="headerlink" title="总结"></a>总结 </h3><p> 通过这种方式不难看出来，React 是从一个入口函数一步一步往下递归调用，直到渲染出最终的 dom，有严格的数据控制流。Vue 是把节点和数据进行双向绑定。React 是严格的树型结构，而 Vue 更像是网状结构(一个节点可以绑定多个数据，一个数据也可以被多个节点所绑定)。</p>
+<h2 id="如何选择"><a href="# 如何选择" class="headerlink" title="如何选择"></a>如何选择 </h2><p> 我先给几个简单粗暴地选择方式：</p>
+<ul>
+<li>团队规模(一两个人就用 vue; 几十人几百人几千人合作就用 react)</li>
+<li>项目规模(两天就上一次线短线维护就用 vue; 长期维护，多人合作，大项目就用 react)</li>
+<li>团队技术能力(都是很 niubility 的可以用 react，初学者较多建议使用 vue，啥都不行就 JQ)</li>
+<li>代码可维护(懒得写一堆代码控制数据流，拆分组件什么的你就用 vue; 需要严格控制生产流程以及模块划分十分细腻的就用 react)</li>
+</ul>
+<p>剩下的请参考下面的内容</p>
+<p><a href="http://www.infoq.com/cn/news/2016/12/why-Vue-js-no-react" target="_blank" rel="noopener">我们为什么选择 Vue.js 而不是 React</a><br><a href="http://www.jcodecraeer.com/a/javascript/2017/0111/6983.html" target="_blank" rel="noopener">React 还是 Vue: 你应该选择哪一个 Web 前端框架？</a></p>
+<h2 id="参考"><a href="# 参考" class="headerlink" title="参考"></a>参考 </h2><p><a href="https://github.com/DMQ/mvvm" target="_blank" rel="noopener"> 剖析 Vue 实现原理 - 如何实现双向绑定 mvvm</a><br><a href="https://www.zhihu.com/question/23486749/answer/314072549" target="_blank" rel="noopener">观察者模式和发布订阅模式有什么不同？</a><br><a href="http://tcatche.site/2017/07/react-internals-part-one-basic-rendering/" target="_blank" rel="noopener">【React 内部原理，第一部分：基础渲染，中英双字】</a><br><a href="http://www.mattgreer.org/articles/react-internals-part-one-basic-rendering/" target="_blank" rel="noopener">【英文原版】</a></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2018-2020. | Powered By <a href="https://hexo.io/">Hexo</a>| Theme <a href="https://github.com/someus/huno">Huno</a></span>
+    <div style="margin-top: 16px;">
+    	<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs" aria-label="Follow @JackieLs on GitHub">Follow @JackieLs</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io" data-icon="octicon-star" aria-label="Star JackieLs/JackieLs.github.io on GitHub">Star</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io/issues" data-icon="octicon-issue-opened" aria-label="Issue JackieLs/JackieLs.github.io on GitHub">Issue</a>
+    </div>
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    <script src="//cdn1.lncld.net/static/js/3.5.0/av-min.js"></script>
+<script>
+var APP_ID  = 'jzQsjRglCHMcEvMrIJtbw3sV-gzGzoHsz'
+var APP_KEY = '3Bf95QMn8Ky1DISWf4Ml9GzA'
+AV.init({
+	appId: APP_ID,
+	appKey: APP_KEY
+})
+// var Visitors = AV.Object.extend('Jackie_Blog_Visitors');
+// var visitor = new Visitors();
+
+// visitor.set('path', )
+
+
+
+// visitor.set('')
+
+
+// visitor.save({
+// 	words: 'Hello World!'
+// }).then(function(object) {
+// 	alert('LeanCloud Rocks!');
+// })
+</script>
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+    <!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+</body>
+</html>
