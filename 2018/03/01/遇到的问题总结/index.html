@@ -7,7 +7,7 @@
     
 
     <title>
-      项目中遇到的问题总结 | Jackie.Ls&#39; Blog 
+      遇到的问题总结 | Jackie.Ls&#39; Blog 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,18 +16,18 @@
     
     
 
-    <meta name="description" content="React 中 autocomplete 在 ios 的 Chrome 上面不好用  关于该问题的 issue 我的解决方式比较 hack 直接放弃使用原生的 onChange 方式直接使用原生的事件监听。">
+    <meta name="description" content="React 中 autocomplete 在 ios 的 Chrome 上面不好用  关于该问题的 issue 我的解决方式比较 hack 直接放弃使用原生的 onChange 方式直接使用原生的事件监听。 FileReader 占用问题  使用 setTimeout(foo, 0) 进行异步调用。 html 转 pdf安装 wkhtmltopdf1wkhtmltopdf --disable-sm">
 <meta name="keywords" content="javascript,nodejs">
 <meta property="og:type" content="article">
-<meta property="og:title" content="项目中遇到的问题总结 | Jackie.Ls&#39; Blog">
+<meta property="og:title" content="遇到的问题总结 | Jackie.Ls&#39; Blog">
 <meta property="og:url" content="https://jackiels.github.io/2018/03/01/遇到的问题总结/index.html">
 <meta property="og:site_name" content="Jackie.Ls&#39; Blog">
-<meta property="og:description" content="React 中 autocomplete 在 ios 的 Chrome 上面不好用  关于该问题的 issue 我的解决方式比较 hack 直接放弃使用原生的 onChange 方式直接使用原生的事件监听。">
+<meta property="og:description" content="React 中 autocomplete 在 ios 的 Chrome 上面不好用  关于该问题的 issue 我的解决方式比较 hack 直接放弃使用原生的 onChange 方式直接使用原生的事件监听。 FileReader 占用问题  使用 setTimeout(foo, 0) 进行异步调用。 html 转 pdf安装 wkhtmltopdf1wkhtmltopdf --disable-sm">
 <meta property="og:locale" content="en-US">
-<meta property="og:updated_time" content="2018-03-01T09:16:08.837Z">
+<meta property="og:updated_time" content="2018-03-06T08:07:28.397Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="项目中遇到的问题总结 | Jackie.Ls&#39; Blog">
-<meta name="twitter:description" content="React 中 autocomplete 在 ios 的 Chrome 上面不好用  关于该问题的 issue 我的解决方式比较 hack 直接放弃使用原生的 onChange 方式直接使用原生的事件监听。">
+<meta name="twitter:title" content="遇到的问题总结 | Jackie.Ls&#39; Blog">
+<meta name="twitter:description" content="React 中 autocomplete 在 ios 的 Chrome 上面不好用  关于该问题的 issue 我的解决方式比较 hack 直接放弃使用原生的 onChange 方式直接使用原生的事件监听。 FileReader 占用问题  使用 setTimeout(foo, 0) 进行异步调用。 html 转 pdf安装 wkhtmltopdf1wkhtmltopdf --disable-sm">
     
     
     
@@ -156,7 +156,7 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">项目中遇到的问题总结</h1>
+    <h1 class="post-title">遇到的问题总结</h1>
 
     
 
@@ -189,6 +189,9 @@ classes that you can use:
   <section id="post-content" class="article-content post">
     <h3 id="React 中 autocomplete 在 ios 的 Chrome 上面不好用"><a href="#React 中 autocomplete 在 ios 的 Chrome 上面不好用" class="headerlink" title="React 中 autocomplete 在 ios 的 Chrome 上面不好用"></a>React 中 autocomplete 在 ios 的 Chrome 上面不好用 </h3><p><a href="https://github.com/facebook/react/issues/1159" target="_blank" rel="noopener"> 关于该问题的 issue</a></p>
 <p>我的解决方式比较 hack 直接放弃使用原生的 onChange 方式直接使用原生的事件监听。</p>
+<h3 id="FileReader 占用问题"><a href="#FileReader 占用问题" class="headerlink" title="FileReader 占用问题"></a>FileReader 占用问题 </h3><p> 使用 <code>setTimeout(foo, 0)</code> 进行异步调用。</p>
+<h3 id="html 转 pdf"><a href="#html 转 pdf" class="headerlink" title="html 转 pdf"></a>html 转 pdf</h3><p>安装 wkhtmltopdf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wkhtmltopdf --disable-smart-shrinking --zoom 2.5</span><br></pre></td></tr></table></figure></p>
+<h3 id="多个项目的的公共模块"><a href="# 多个项目的的公共模块" class="headerlink" title="多个项目的的公共模块"></a>多个项目的的公共模块 </h3><p> 把公共模块作为一个单独的 git 库，每次上线跑 ci 的时候，添加上一个 submodel，把这个 git 库克隆下来，从而实现每个项目独立同时还能共享公共模块的方法。</p>
 
   </section>
 
