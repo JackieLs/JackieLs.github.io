@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      关于 Babel 那点事儿 | Jackie.Ls&#39; Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jackie.Ls">
+    
+    
+
+    <meta name="description" content="在很久很久以前，浏览器还不支持 ES6 的相关特性，在这种情况下，babel 诞生了，它的使命是维持这个时代的发展，直到那天的到来…..  babel 的使用方法 babel 支持各种各样的编译工具或者环境，我们只列举两个，查看所有的请 点我 babel-cli安装 babel-cli1npm install -D -g babel-cli 运行1babel es6.js -o native.j">
+<meta name="keywords" content="javascript,nodejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于 Babel 那点事儿 | Jackie.Ls&#39; Blog">
+<meta property="og:url" content="https://jackiels.github.io/2018/03/06/关于Babel那点事儿/index.html">
+<meta property="og:site_name" content="Jackie.Ls&#39; Blog">
+<meta property="og:description" content="在很久很久以前，浏览器还不支持 ES6 的相关特性，在这种情况下，babel 诞生了，它的使命是维持这个时代的发展，直到那天的到来…..  babel 的使用方法 babel 支持各种各样的编译工具或者环境，我们只列举两个，查看所有的请 点我 babel-cli安装 babel-cli1npm install -D -g babel-cli 运行1babel es6.js -o native.j">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2018-03-07T06:45:39.242Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于 Babel 那点事儿 | Jackie.Ls&#39; Blog">
+<meta name="twitter:description" content="在很久很久以前，浏览器还不支持 ES6 的相关特性，在这种情况下，babel 诞生了，它的使命是维持这个时代的发展，直到那天的到来…..  babel 的使用方法 babel 支持各种各样的编译工具或者环境，我们只列举两个，查看所有的请 点我 babel-cli安装 babel-cli1npm install -D -g babel-cli 运行1babel es6.js -o native.j">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Jackie.Ls&#39; Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          FE Thug Life
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">About</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">关于 Babel 那点事儿</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-03-06" class="post-meta__date date">2018-03-06</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/大前端/">大前端</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/javascript/">javascript</a>, <a class="tags-link" href="/tags/nodejs/">nodejs</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <blockquote>
+<p>在很久很久以前，浏览器还不支持 ES6 的相关特性，在这种情况下，babel 诞生了，它的使命是维持这个时代的发展，直到那天的到来…..</p>
+</blockquote>
+<h2 id="babel 的使用方法"><a href="#babel 的使用方法" class="headerlink" title="babel 的使用方法"></a>babel 的使用方法 </h2><p>babel 支持各种各样的编译工具或者环境，我们只列举两个，查看所有的请<a href="http://babeljs.io/docs/setup/" target="_blank" rel="noopener"> 点我</a></p>
+<h3 id="babel-cli"><a href="#babel-cli" class="headerlink" title="babel-cli"></a>babel-cli</h3><p>安装 babel-cli<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D -g babel-cli</span><br></pre></td></tr></table></figure></p>
+<p>运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">babel es6.js -o native.js</span><br></pre></td></tr></table></figure></p>
+<p>这个时候基本上是什么都没干的，或者是什么都干不了的，需要在 <code>.babelrc</code> 中配置 <code>presets</code>，也可以通过<code>--presets env</code> 的方式对 <code>presets</code> 进行配置，需要在 <strong>当前运行路径下 </strong> 安装对应的<code>presets</code> 插件。往下看 <code>presets</code> 是啥。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">babel --presets env es6.js -o test.js</span><br></pre></td></tr></table></figure></p>
+<h3 id="在 webpack 中使用"><a href="# 在 webpack 中使用" class="headerlink" title="在 webpack 中使用"></a>在 webpack 中使用 </h3><p> 安装 babel 核心代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D babel-loader babel-core</span><br></pre></td></tr></table></figure></p>
+<p>然后在 webpack 中配置 loader<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">  rules: [</span><br><span class="line">    &#123; <span class="attr">test</span>: <span class="regexp">/\.js$/</span>, <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>, <span class="attr">loader</span>: <span class="string">"babel-loader"</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后在根目录下创建<code>.babelrc</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;env&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>presets</code>这个字段的意思就是预设值，相当于告诉 bebel 我们要编译哪样的代码，在以前预设值有 <code>es2015,es2016,es2017....</code> 等，现在直接用 <code>[&quot;env&quot;]</code> 这个选项就替代那些了。在 babel6+ 开始 babel 的这些插件变成可插拔的了，也就是如果用就写到 <code>presets</code> 里面，不用就不要写。所以我们还要安装一个依赖就是<code>babel-preset-env</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D babel-preset-env</span><br></pre></td></tr></table></figure></p>
+<h2 id="babel-core-amp-babel-loader"><a href="#babel-core-amp-babel-loader" class="headerlink" title="babel-core &amp; babel-loader"></a>babel-core &amp; babel-loader</h2><p>我们简单聊一些 <code>babel-core</code> 和<code>babel-loader</code>，<code>babel-core</code>是 babel 的核心代码，是 <code>babel-cli</code> 的 NodeAPI，它我们看看 <code>babel-core</code> 的<code>package.json</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line">	&quot;babel-code-frame&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">	&quot;babel-generator&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">	&quot;babel-helpers&quot;: &quot;^6.24.1&quot;,</span><br><span class="line">	&quot;babel-messages&quot;: &quot;^6.23.0&quot;,</span><br><span class="line">	&quot;babel-register&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">	&quot;babel-runtime&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">	&quot;babel-template&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">	&quot;babel-traverse&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">	&quot;babel-types&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">	&quot;babylon&quot;: &quot;^6.18.0&quot;,</span><br><span class="line">	&quot;convert-source-map&quot;: &quot;^1.5.0&quot;,</span><br><span class="line">	&quot;debug&quot;: &quot;^2.6.8&quot;,</span><br><span class="line">	&quot;json5&quot;: &quot;^0.5.1&quot;,</span><br><span class="line">	&quot;lodash&quot;: &quot;^4.17.4&quot;,</span><br><span class="line">	&quot;minimatch&quot;: &quot;^3.0.4&quot;,</span><br><span class="line">	&quot;path-is-absolute&quot;: &quot;^1.0.1&quot;,</span><br><span class="line">	&quot;private&quot;: &quot;^0.1.7&quot;,</span><br><span class="line">	&quot;slash&quot;: &quot;^1.0.0&quot;,</span><br><span class="line">	&quot;source-map&quot;: &quot;^0.5.6&quot;</span><br><span class="line">&#125;,</span><br><span class="line">&quot;devDependencies&quot;: &#123;</span><br><span class="line">	&quot;babel-helper-fixtures&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">	&quot;babel-helper-transform-fixture-test-runner&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">	&quot;babel-polyfill&quot;: &quot;^6.26.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>babylon 这个就是整个编译最核心的部分了，这部分并不需要暴露给我们使用者，但是如果你是一个 babel 的贡献者的话，这个包必须认认真真的了解。详情可以去看看 npm 关于<a href="https://www.npmjs.com/package/babylon" target="_blank" rel="noopener">babylon 的介绍</a>。</p>
+</blockquote>
+<p>可以看到 <code>babel-core</code> 也是引用了很多 babel 的包，他会读取 <code>.babelrc</code> 中的配置，同时他给 <code>babel-loader</code> 提供 <code>babel-cli</code> 的 NodeAPI，然后 <code>babel-core</code> 再去调用其他的 babel 包来完成编译。<code>babel-loader</code>的最核心的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var babel = require(&quot;babel-core&quot;);</span><br><span class="line">result = babel.transform(source, options)</span><br></pre></td></tr></table></figure></p>
+<p>这样当我们启动 webpack 的时候，webpack —&gt; babel-loader —&gt; babel-core —&gt; babel-xxxxx。</p>
+<h2 id="babelrc"><a href="#babelrc" class="headerlink" title=".babelrc"></a>.babelrc</h2><p><code>.babelrc</code>是要放在你的项目根目录下面的一个配置文件，<code>babel-cli</code>和 <code>babel-core</code> 都会读取这个文件的配置信息然后再去编译我们的源代码，这个文件主要有 <code>presets</code> 和<code>plugin</code>这两个部分。曾经我写过的史上最简单的<code>.babelrc</code><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	presets: ['env','stage-0'],</span><br><span class="line">	plugins: ['transform-runtime']</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="presets"><a href="#presets" class="headerlink" title="presets"></a>presets</h3><p>前面已经说过 presets 是什么了，我们来详细说说其中两个经常用的东西。</p>
+<h4 id="env"><a href="#env" class="headerlink" title="env"></a>env</h4><p>env 的详细配置 <a href="https://www.npmjs.com/package/babel-preset-env" target="_blank" rel="noopener"> 官方文档都有 </a><br> 格式如下:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	presets: ['env'],</span><br><span class="line">&#125;</span><br><span class="line">// or </span><br><span class="line">&#123;</span><br><span class="line">	presets: [</span><br><span class="line">		['env', &#123;</span><br><span class="line">			targets: &#123;</span><br><span class="line">				"browsers": ["last 2 versions", "ie &gt;= 7"] // 具体取值可以参考 browserlist(https://github.com/ai/browserslist),</span><br><span class="line">				"chrome": 56, </span><br><span class="line">				"safari": 1, // 针对指定浏览器的指定版本。</span><br><span class="line">				"node": "current" // or version number </span><br><span class="line">			&#125;,</span><br><span class="line">			spec: flase, //Enable more spec compliant, but potentially slower, transformations for any plugins in this preset that support them. 这个没懂什么意思，好像不是很常用</span><br><span class="line">			loose: false, // 宽松模式，非严格模式</span><br><span class="line">			modules:"commonjs",// 把 ES6 的模块编译成另外一种规范的模块</span><br><span class="line">			debug: true/false, // 调试</span><br><span class="line">			include: [], // 一个需要包含的插件的数组</span><br><span class="line">			exclude: [], // 一个需要不包含的插件的数组</span><br><span class="line">			useBuiltIns: false, // 是否对 babel-polyfill 进行分解，只引入所需的部分</span><br><span class="line">		&#125;],</span><br><span class="line">	]</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通常情况下，相信我，99% 的情况下，<code>babel-preset-env</code>就设置一个 <code>targets</code> 就够了。</p>
+<h4 id="Stage-n"><a href="#Stage-n" class="headerlink" title="Stage - n"></a>Stage - n</h4><p>举个最简单的例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> objA = &#123;</span><br><span class="line">	key1: <span class="number">1</span>,</span><br><span class="line">	key2: <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> objB = &#123;...objA&#125;</span><br><span class="line"><span class="built_in">console</span>.log(objB)<span class="comment">//&#123; key1:1, key2:2 &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>当使用<code>babel --presets env es6.js -o test.js</code>，编译的时候你会发现报错了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SyntaxError: es6.js: Unexpected token (5:14)</span><br><span class="line">  3 |   key2: 2</span><br><span class="line">  4 | &#125;</span><br><span class="line">&gt; 5 | const objB = &#123;...objA&#125;</span><br><span class="line">    |               ^</span><br><span class="line">  6 | console.log(objB)//&#123; key1:1, key2:2 &#125;</span><br></pre></td></tr></table></figure></p>
+<p>原因很简单，因为 <code>...</code> 拓展操作符，还处在提案阶段。可以看一下 babel 官网 <a href="https://babeljs.io/docs/plugins/preset-stage-3/" target="_blank" rel="noopener">stage-3</a> 其中有一个 <code>transform-object-rest-spread</code>，就是<code>...</code> 操作符的提案。所以必须在 <code>.babelrc</code> 中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;env&quot;, &quot;stage-3&quot;] // or 添加一个 &quot;plugins&quot;: [&quot;transform-object-rest-spread&quot;],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以 <code>Stage - n</code> 就是还处在提案阶段的 es6、es7 特性，他一共有四个部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Stage 0 - Strawman（展示阶段）</span><br><span class="line">Stage 1 - Proposal（征求意见阶段）</span><br><span class="line">Stage 2 - Draft（草案阶段）</span><br><span class="line">Stage 3 - Candidate（候选人阶段）</span><br><span class="line">Stage 4 - Finished（定案阶段）</span><br></pre></td></tr></table></figure></p>
+<p>其中 0 ⊇ 1 ⊇ 2 ⊇ 3 ⊇ 4 (数学符号包含的意思)，这部分内容会一致慢慢更新，直到最后把特性移到 <code>env</code> 包里面。记得要及时更新追赶潮流。</p>
+<h3 id="plugins"><a href="#plugins" class="headerlink" title="plugins"></a>plugins</h3><p>插件有几个用处，当你知道哪个 stage-n 里面的哪个具体功能是你想用的时候，可以直接使用 <code>pulgin</code> 而不是使用 stage-n 的方式进行全量引入。还有就是一些特殊的功能。</p>
+<h4 id="transform-object-rest-spread"><a href="#transform-object-rest-spread" class="headerlink" title="transform-object-rest-spread"></a>transform-object-rest-spread</h4><p>还是上面那个 <code>...</code> 对象扩展运算符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D transform-object-rest-spread</span><br></pre></td></tr></table></figure>
+<p>配置<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"presets"</span>: [<span class="string">"env"</span>],</span><br><span class="line">  <span class="attr">"plugins"</span>: [<span class="string">"transform-object-rest-spread"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>写成这样，那么 <code>stage-3</code> 以及 <code>stage-4</code> 里面无用的包就不会被引入进来，减小了代码的体积。</p>
+<h4 id="babel-plugin-transform-runtime"><a href="#babel-plugin-transform-runtime" class="headerlink" title="babel-plugin-transform-runtime"></a>babel-plugin-transform-runtime</h4><p>目前我用过的比较多的插件，babel 在编译的时候会用到很多的工具函数，如果这个工具函数没有的话，就会在每个文件上都添加一个这个函数，多了就会导致每个文件出现很多重复的代码，这显然不符合我们对代码的要求。所以出现了 <code>babel-plugin-transform-runtime</code> 这个插件，使用方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D transform-object-rest-spread</span><br></pre></td></tr></table></figure>
+<p>配置<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"presets"</span>: [<span class="string">"env"</span>],</span><br><span class="line">  <span class="attr">"plugins"</span>: [<span class="string">"transform-runtime"</span>, <span class="string">"transform-object-rest-spread"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样所有 babel 编译之后的包都会用 <code>require(&#39;babel-runtime/helpers/xxxxx&#39;);</code> 这样的代码而不是再写一遍这个函数。还有很多插件我就不一一介绍了，希望读者可以自己发掘。欢迎讨论。</p>
+<h2 id="总结"><a href="# 总结" class="headerlink" title="总结"></a>总结 </h2><p> 今天简单说了一下 babel 的使用和其内部的简单原理，babel 其实很简单，基本上就是安装了就用，配合 webpack 就可以很好的打造一个前端工程脚手架了。之后会有一遍关于 <code>webpack-loader</code> 的教程，里面会提到<code>babel-loader</code>，希望大家到时候不要忘了 babel 是干啥用的。</p>
+<h2 id="参考"><a href="# 参考" class="headerlink" title="参考"></a>参考 </h2><p><a href="https://excaliburhan.com/post/babel-preset-and-plugins.html" target="_blank" rel="noopener"> 如何写好.babelrc？Babel 的 presets 和 plugins 配置解析 </a> 的一个回答 <br><a href="http://2ality.com/2017/02/babel-preset-env.html" target="_blank" rel="noopener">babel-preset-env: a preset that configures Babel for you</a><br><a href="https://babeljs.io/docs" target="_blank" rel="noopener"> 官方文档</a></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2018-2020. | Powered By <a href="https://hexo.io/">Hexo</a>| Theme <a href="https://github.com/someus/huno">Huno</a></span>
+    <div style="margin-top: 16px;">
+    	<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs" aria-label="Follow @JackieLs on GitHub">Follow @JackieLs</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io" data-icon="octicon-star" aria-label="Star JackieLs/JackieLs.github.io on GitHub">Star</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io/issues" data-icon="octicon-issue-opened" aria-label="Issue JackieLs/JackieLs.github.io on GitHub">Issue</a>
+    </div>
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    <script src="//cdn1.lncld.net/static/js/3.5.0/av-min.js"></script>
+<script>
+var APP_ID  = 'jzQsjRglCHMcEvMrIJtbw3sV-gzGzoHsz'
+var APP_KEY = '3Bf95QMn8Ky1DISWf4Ml9GzA'
+AV.init({
+	appId: APP_ID,
+	appKey: APP_KEY
+})
+// var Visitors = AV.Object.extend('Jackie_Blog_Visitors');
+// var visitor = new Visitors();
+
+// visitor.set('path', )
+
+
+
+// visitor.set('')
+
+
+// visitor.save({
+// 	words: 'Hello World!'
+// }).then(function(object) {
+// 	alert('LeanCloud Rocks!');
+// })
+</script>
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+    <!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+</body>
+</html>
