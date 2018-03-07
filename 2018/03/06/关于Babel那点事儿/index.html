@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="Jackie.Ls&#39; Blog">
 <meta property="og:description" content="在很久很久以前，浏览器还不支持 ES6 的相关特性，在这种情况下，babel 诞生了，它的使命是维持这个时代的发展，直到那天的到来…..  babel 的使用方法 babel 支持各种各样的编译工具或者环境，我们只列举两个，查看所有的请 点我 babel-cli安装 babel-cli1npm install -D -g babel-cli 运行1babel es6.js -o native.j">
 <meta property="og:locale" content="en-US">
-<meta property="og:updated_time" content="2018-03-07T06:45:39.242Z">
+<meta property="og:updated_time" content="2018-03-07T11:00:40.772Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于 Babel 那点事儿 | Jackie.Ls&#39; Blog">
 <meta name="twitter:description" content="在很久很久以前，浏览器还不支持 ES6 的相关特性，在这种情况下，babel 诞生了，它的使命是维持这个时代的发展，直到那天的到来…..  babel 的使用方法 babel 支持各种各样的编译工具或者环境，我们只列举两个，查看所有的请 点我 babel-cli安装 babel-cli1npm install -D -g babel-cli 运行1babel es6.js -o native.j">
@@ -223,7 +223,7 @@ classes that you can use:
 <p>配置<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"presets"</span>: [<span class="string">"env"</span>],</span><br><span class="line">  <span class="attr">"plugins"</span>: [<span class="string">"transform-runtime"</span>, <span class="string">"transform-object-rest-spread"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这样所有 babel 编译之后的包都会用 <code>require(&#39;babel-runtime/helpers/xxxxx&#39;);</code> 这样的代码而不是再写一遍这个函数。还有很多插件我就不一一介绍了，希望读者可以自己发掘。欢迎讨论。</p>
 <h2 id="总结"><a href="# 总结" class="headerlink" title="总结"></a>总结 </h2><p> 今天简单说了一下 babel 的使用和其内部的简单原理，babel 其实很简单，基本上就是安装了就用，配合 webpack 就可以很好的打造一个前端工程脚手架了。之后会有一遍关于 <code>webpack-loader</code> 的教程，里面会提到<code>babel-loader</code>，希望大家到时候不要忘了 babel 是干啥用的。</p>
-<h2 id="参考"><a href="# 参考" class="headerlink" title="参考"></a>参考 </h2><p><a href="https://excaliburhan.com/post/babel-preset-and-plugins.html" target="_blank" rel="noopener"> 如何写好.babelrc？Babel 的 presets 和 plugins 配置解析 </a> 的一个回答 <br><a href="http://2ality.com/2017/02/babel-preset-env.html" target="_blank" rel="noopener">babel-preset-env: a preset that configures Babel for you</a><br><a href="https://babeljs.io/docs" target="_blank" rel="noopener"> 官方文档</a></p>
+<h2 id="参考资料"><a href="# 参考资料" class="headerlink" title="参考资料"></a>参考资料 </h2><p><a href="https://excaliburhan.com/post/babel-preset-and-plugins.html" target="_blank" rel="noopener"> 如何写好.babelrc？Babel 的 presets 和 plugins 配置解析 </a> 的一个回答 <br><a href="http://2ality.com/2017/02/babel-preset-env.html" target="_blank" rel="noopener">babel-preset-env: a preset that configures Babel for you</a><br><a href="https://babeljs.io/docs" target="_blank" rel="noopener"> 官方文档</a></p>
 
   </section>
 

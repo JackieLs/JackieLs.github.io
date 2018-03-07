@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="Jackie.Ls&#39; Blog">
 <meta property="og:description" content="webpack 太强大了，以至于不知道该怎么用了。今天就来讲一点基本的 webpack 优化相关技巧。  我们的目标  创建一个 webpack-demo，这个 demo 包含以下功能。  按需加载 代码分割 公共代码抽离 使用 hash 进行文件标识，方便缓存  本文以 webpack3 为基础，因为很多原理性的东西要在 webpack3 中讲解，webpack4 做了很多默认的优化，具体内容">
 <meta property="og:locale" content="en-US">
-<meta property="og:updated_time" content="2018-03-06T10:04:52.360Z">
+<meta property="og:updated_time" content="2018-03-07T11:00:34.519Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Webpack 优化技巧 (1) | Jackie.Ls&#39; Blog">
 <meta name="twitter:description" content="webpack 太强大了，以至于不知道该怎么用了。今天就来讲一点基本的 webpack 优化相关技巧。  我们的目标  创建一个 webpack-demo，这个 demo 包含以下功能。  按需加载 代码分割 公共代码抽离 使用 hash 进行文件标识，方便缓存  本文以 webpack3 为基础，因为很多原理性的东西要在 webpack3 中讲解，webpack4 做了很多默认的优化，具体内容">
@@ -254,7 +254,7 @@ classes that you can use:
 </ul>
 <p>回顾一下，最开始我们 build 的结果，每个文件都是 500 多 K，现在所有文件加到一起差不多 500 多 K，最开始的每个文件都包含了所有的 chunk，现在每个 chunk 都是分离的，对资源进行了极大的优化(不包括压缩等)。</p>
 <h2 id="总结"><a href="# 总结" class="headerlink" title="总结"></a>总结 </h2><p> 这次我们没有使用任何 loader 进行了一些基本的配置优化，几乎任何一个 SPA 项目中，今天说的这些优化都是要做的，代码分割，按需加载，模块抽离，缓存命中。希望读者能明白，并且最后可以脱离本文进行徒手书写。下一次会结合 React 介绍 loader 和一些常用的三方插件。</p>
-<h2 id="参考"><a href="# 参考" class="headerlink" title="参考"></a>参考 </h2><p><a href="https://doc.webpack-china.org/" target="_blank" rel="noopener">Webpack 官方文档译文</a><br><a href="https://github.com/webpack/webpack/issues/1949" target="_blank" rel="noopener">import() 动态引用的 chunkName 设置</a></p>
+<h2 id="参考资料"><a href="# 参考资料" class="headerlink" title="参考资料"></a>参考资料 </h2><p><a href="https://doc.webpack-china.org/" target="_blank" rel="noopener">Webpack 官方文档译文</a><br><a href="https://github.com/webpack/webpack/issues/1949" target="_blank" rel="noopener">import() 动态引用的 chunkName 设置</a></p>
 
   </section>
 
