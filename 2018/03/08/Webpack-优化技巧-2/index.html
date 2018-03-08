@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Webpack 优化技巧 (2)：loader | Jackie.Ls&#39; Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jackie.Ls">
+    
+    
+
+    <meta name="description" content="上期链接Webpack 优化技巧 (1)  上一次我们说了一下关于代码拆分，缓存命中，以及公共部分抽离的功能，这次我们来说一下关于 Loaders  什么是 loaders webpack 可以使用 loader 来预处理文件。这允许你打包除 JavaScript 之外的任何静态资源。你可以使用 Node.js 来很简单地编写自己的 loader。  loaders 如何使用  主要有两种方式：">
+<meta name="keywords" content="javascript,nodejs,webpack,loader">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack 优化技巧 (2)：loader | Jackie.Ls&#39; Blog">
+<meta property="og:url" content="https://jackiels.github.io/2018/03/08/Webpack-优化技巧-2/index.html">
+<meta property="og:site_name" content="Jackie.Ls&#39; Blog">
+<meta property="og:description" content="上期链接Webpack 优化技巧 (1)  上一次我们说了一下关于代码拆分，缓存命中，以及公共部分抽离的功能，这次我们来说一下关于 Loaders  什么是 loaders webpack 可以使用 loader 来预处理文件。这允许你打包除 JavaScript 之外的任何静态资源。你可以使用 Node.js 来很简单地编写自己的 loader。  loaders 如何使用  主要有两种方式：">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2018-03-08T08:59:41.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Webpack 优化技巧 (2)：loader | Jackie.Ls&#39; Blog">
+<meta name="twitter:description" content="上期链接Webpack 优化技巧 (1)  上一次我们说了一下关于代码拆分，缓存命中，以及公共部分抽离的功能，这次我们来说一下关于 Loaders  什么是 loaders webpack 可以使用 loader 来预处理文件。这允许你打包除 JavaScript 之外的任何静态资源。你可以使用 Node.js 来很简单地编写自己的 loader。  loaders 如何使用  主要有两种方式：">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Jackie.Ls&#39; Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          FE Thug Life
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">About</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Webpack 优化技巧 (2)：loader</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-03-08" class="post-meta__date date">2018-03-08</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/大前端/">大前端</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/javascript/">javascript</a>, <a class="tags-link" href="/tags/loader/">loader</a>, <a class="tags-link" href="/tags/nodejs/">nodejs</a>, <a class="tags-link" href="/tags/webpack/">webpack</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>上期链接<a href="/2018/03/02/Webpack- 优化技巧 -1/">Webpack 优化技巧 (1)</a></p>
+<blockquote>
+<p>上一次我们说了一下关于代码拆分，缓存命中，以及公共部分抽离的功能，这次我们来说一下关于 Loaders</p>
+</blockquote>
+<h2 id="什么是 loaders"><a href="# 什么是 loaders" class="headerlink" title="什么是 loaders"></a>什么是 loaders</h2><blockquote>
+<p>webpack 可以使用 loader 来预处理文件。这允许你打包除 JavaScript 之外的任何静态资源。你可以使用 Node.js 来很简单地编写自己的 loader。</p>
+</blockquote>
+<h2 id="loaders 如何使用"><a href="#loaders 如何使用" class="headerlink" title="loaders 如何使用"></a>loaders 如何使用 </h2><p> 主要有两种方式：</p>
+<ul>
+<li>在 require 语句中使用<code>require(&#39;style-loader!css-loader!sass-loader!style.scss&#39;)</code>(除非特殊情况，通常不建议使用这种方式)</li>
+<li>另外一种方式在 <code>webpack.config.js</code> 中配置</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"><span class="keyword">const</span> config = &#123;</span><br><span class="line">	context: __dirname,</span><br><span class="line">	entry: &#123;</span><br><span class="line">		main: <span class="string">'../src/main.js'</span>,</span><br><span class="line">		common: <span class="string">'lodash'</span></span><br><span class="line">	&#125;,</span><br><span class="line">	output: &#123;</span><br><span class="line">		filename: <span class="string">'[name].[id].[chunkhash].js'</span>,</span><br><span class="line">		chunkFilename: <span class="string">'[name].[id].[chunkhash].js'</span>,</span><br><span class="line">		path: path.resolve(__dirname, <span class="string">'../dist'</span>)</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">/* ==== start ====  */</span></span><br><span class="line">	<span class="built_in">module</span>: &#123;</span><br><span class="line">		rules:[</span><br><span class="line">			&#123;</span><br><span class="line">				test: <span class="regexp">/.js$/</span>,</span><br><span class="line">				include: , <span class="comment">// 尽量用这个规定一下路径，减少目录的扫描。</span></span><br><span class="line">				exclude: <span class="regexp">/node_modules/</span>, <span class="comment">// 用这个排除 node_modules 里的代码，/node_modules/ 里面的代码不用我们编译。</span></span><br><span class="line">				use: &#123;</span><br><span class="line">					loader: <span class="string">'babel-loader'</span>, <span class="comment">// 这里可以添加一个?cacheDirectory，来对 babel 编译结果进行缓存</span></span><br><span class="line">					options: &#123;</span><br><span class="line">						presets: [], <span class="comment">// 不建议这么做，直接在.babelrc 中配置会更加直观，独立</span></span><br><span class="line">						pulgins: []</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="comment">//... 其余 loader</span></span><br><span class="line"></span><br><span class="line">		]</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/* ==== end ====  */</span></span><br><span class="line">	plugins: [</span><br><span class="line">		<span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">			name: [<span class="string">'common'</span>, <span class="string">'manifest'</span>]</span><br><span class="line">		&#125;)</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是 babel-loader 结合 webpack 最基本的使用方式。具体用什么 loader 需要自行进行选择，给出几种比较常见的 loader。</p>
+<h4 id="SCSS"><a href="#SCSS" class="headerlink" title="SCSS"></a>SCSS</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	test: <span class="regexp">/.scss$/</span>,</span><br><span class="line">	use: [&#123;</span><br><span class="line">		loader: <span class="string">"style-loader"</span> <span class="comment">// 将 JS 字符串生成为 style 节点</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		loader: <span class="string">"css-loader"</span> <span class="comment">// 将 CSS 转化成 CommonJS 模块</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		loader: <span class="string">"sass-loader"</span> <span class="comment">// 将 Sass 编译成 CSS</span></span><br><span class="line">	&#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果要是在生产环境下，通常会使用 <code>ExtractTextPlugin</code> 把所有的样式最终抽离成为一个静态文件，<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ExtractTextPlugin = <span class="built_in">require</span>(<span class="string">"extract-text-webpack-plugin"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> extractSass = <span class="keyword">new</span> ExtractTextPlugin(&#123;</span><br><span class="line">    filename: <span class="string">"[name].[contenthash].css"</span>,</span><br><span class="line">    disable: process.env.NODE_ENV === <span class="string">"development"</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [&#123;</span><br><span class="line">            test: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">            use: extractSass.extract(&#123;</span><br><span class="line">                use: [&#123;</span><br><span class="line">                    loader: <span class="string">"css-loader"</span></span><br><span class="line">                &#125;, &#123;</span><br><span class="line">                    loader: <span class="string">"sass-loader"</span></span><br><span class="line">                &#125;],</span><br><span class="line">                <span class="comment">// 在开发环境使用 style-loader</span></span><br><span class="line">                fallback: <span class="string">"style-loader"</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        extractSass</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="png-jpeg-woff…等静态文件"><a href="#png-jpeg-woff…等静态文件" class="headerlink" title="png|jpeg|woff…等静态文件"></a>png|jpeg|woff…等静态文件 </h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">	module: &#123;</span><br><span class="line">		rules: [</span><br><span class="line">			&#123;</span><br><span class="line">				test: /\.(png|jpg|gif)$/,</span><br><span class="line">				use: [&#123;</span><br><span class="line">					loader: &apos;url-loader&apos;,</span><br><span class="line">					options: &#123;</span><br><span class="line">						limit: 8192 // 如果小于这个数(byte) 那么就用 base64 的那种 DataURL</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;]</span><br><span class="line">			&#125;</span><br><span class="line">		]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="如何书写一个 loader"><a href="# 如何书写一个 loader" class="headerlink" title="如何书写一个 loader"></a>如何书写一个 loader</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import &#123; getOptions &#125; from &apos;loader-utils&apos;;</span><br><span class="line">import validateOptions from &apos;schema-utils&apos;;</span><br><span class="line"></span><br><span class="line">const schema = &#123;</span><br><span class="line">	type: &apos;object&apos;,</span><br><span class="line">	properties: &#123;</span><br><span class="line">		test: &#123;</span><br><span class="line">			type: &apos;string&apos;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default function(source) &#123;</span><br><span class="line">	const options = getOptions(this);</span><br><span class="line">	validateOptions(schema, options, &apos;Example Loader&apos;);</span><br><span class="line">	return `export default $&#123; JSON.stringify(source) &#125;`;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>不用鄙视我，我就是在抄文档。主要是原理什么的真的很简单，但是我觉得 loader 最重要的点是要解决实际问题，像 <code>babel-loader</code>、<code>vue-loader</code> 等，他们不是凭空捏造出来的，而是因为有个实际的问题出现应运而生的，所以我要说的是如何写一个 loader 需要做的就是先遇到问题，如果正好写一个 loader 能解决问题，那么何乐而不为呢？</p>
+<h2 id="总结"><a href="# 总结" class="headerlink" title="总结"></a>总结 </h2><p> 今天详细介绍了一下 <code>loaders</code>，从如何使用配置，到如何书写一个 loaders，算上上篇文章，<code>webpack</code> 所有的基本重点都介绍完了。下一次介绍 <code>plugins</code>，<code>plugins</code> 基本上把 <code>webpack</code> 搞得出神入化了，构建性能优化，压缩，html 注入等功能基本上都是用 <code>plugins</code> 实现的，是否会合理的使用 <code>plugins</code> 也体现了工程师对 <code>webpack</code> 真正的认知深度。</p>
+<h2 id="参考资料"><a href="# 参考资料" class="headerlink" title="参考资料"></a>参考资料 </h2><p><a href="https://doc.webpack-china.org/loaders" target="_blank" rel="noopener">webpakc 文档 -loaders</a><br><a href="https://doc.webpack-china.org/contribute/writing-a-loader" target="_blank" rel="noopener"> 编写一个 loader</a></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2018-2020. | Powered By <a href="https://hexo.io/">Hexo</a>| Theme <a href="https://github.com/someus/huno">Huno</a></span>
+    <div style="margin-top: 16px;">
+    	<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs" aria-label="Follow @JackieLs on GitHub">Follow @JackieLs</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io" data-icon="octicon-star" aria-label="Star JackieLs/JackieLs.github.io on GitHub">Star</a>
+		<!-- Place this tag where you want the button to render. -->
+		<a class="github-button" href="https://github.com/JackieLs/JackieLs.github.io/issues" data-icon="octicon-issue-opened" aria-label="Issue JackieLs/JackieLs.github.io on GitHub">Issue</a>
+    </div>
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    <script>
+/* 百度 统计 */
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b80228413e73eb76b88cba9e36b404b7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+    <!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+</body>
+</html>
